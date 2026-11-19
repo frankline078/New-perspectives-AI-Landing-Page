@@ -326,9 +326,10 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    /* Icon only: a round 40px button, the same as the close button. */
+    width: 40px;
     height: 40px;
-    padding: 0 14px 0 16px;
+    padding: 0;
     border: 0;
     border-radius: 999px;
     background: var(--color-paper);
@@ -358,9 +359,6 @@
     transform: scale(0.95);
     background: var(--color-lilac);
   }
-  .menu-label {
-    line-height: 1;
-  }
   .menu-lines,
   .menu-lines::before {
     display: block;
@@ -382,10 +380,6 @@
     top: 6px;
     width: 11px;
     margin-left: 7px;
-  }
-  .menu-btn.is-open {
-    width: 40px;
-    padding: 0;
   }
   .menu-btn.is-open .menu-lines,
   .menu-btn.is-open .menu-lines::before {

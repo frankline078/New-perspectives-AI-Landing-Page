@@ -27,9 +27,6 @@ export function MobileMenu({ demoHref, appHref }: { demoHref: string; appHref: s
         aria-controls="site-menu"
         onClick={() => dialog.current?.showModal()}
       >
-        <span className="menu-label" aria-hidden="true">
-          Menu
-        </span>
         <span className="menu-lines" aria-hidden="true" />
       </button>
 
