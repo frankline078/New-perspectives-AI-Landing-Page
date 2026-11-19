@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Perspectives AI — landing page with motion</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+<style>
+:root{--ink:#23254A;--ink-2:#4A4D72;--ink-3:#5E6185;--gold:#E5A93A;--gold-soft:#F7E3BC;--paper:#FFFFFF;--tint:#F2F2F5;--rule:#D5D6DF;--on-ink:#FFFFFF;--on-ink-2:#C9CADF;--rule-on-ink:#3D4070;--sans:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--serif:'Source Serif 4',Georgia,'Times New Roman',serif;--gutter:clamp(16px,4vw,56px)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#FFFFFF}
+a{color:#23254A}a:hover{color:#23254A}
+.np{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.np *{box-sizing:border-box}
+.np h1,.np h2,.np h3{margin:0;font-weight:600;letter-spacing:-0.015em;text-wrap:balance}
+.np p{margin:0}
+.np ul,.np ol{margin:0;padding:0}
+.np a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+.np a:hover{text-decoration-color:var(--ink)}
+.np a:focus-visible,.np summary:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:var(--gutter)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:3px;font-weight:600;font-size:16px;white-space:nowrap;text-decoration:none!important;transition:background-color .15s ease,color .15s ease}
+.btn-ink{background:var(--ink);color:#fff!important}.btn-ink:hover{background:#14163A}
+.btn-line{box-shadow:inset 0 0 0 1.5px var(--ink);color:var(--ink)}.btn-line:hover{background:var(--ink);color:#fff!important}
+.btn-gold{background:var(--gold);color:var(--ink)!important}.btn-gold:hover{background:#F0BC5C}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-bottom:1px solid var(--rule)}
+.mark{font-weight:700;font-size:19px;letter-spacing:-0.01em;white-space:nowrap;text-decoration:none!important}
+.mark span{font-weight:400}
+.nav{display:flex;align-items:center;gap:28px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{text-decoration:none;font-weight:500;font-size:15px;padding:12px 0}
+.nav-links a:hover{text-decoration:underline;text-decoration-color:var(--gold)}
+.top .btn{min-height:44px;padding:0 16px;font-size:15px}
+.hero{padding-top:clamp(40px,7vw,96px);padding-bottom:clamp(48px,7vw,96px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:clamp(32px,4vw,56px)}
+.hero h1{grid-column:1 / span 10;font-size:clamp(46px,7vw,100px);line-height:.98;letter-spacing:-0.035em;font-weight:600}
+.hero-copy{grid-column:1 / span 4;display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.hero-copy .lede{font-size:clamp(18px,1.5vw,20px);line-height:1.5;color:var(--ink-2)}
+.hero-copy .who{font-size:15px;color:var(--ink-2);padding-top:16px;border-top:1px solid var(--rule);align-self:stretch}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.stage{grid-column:6 / span 7;position:relative;padding-top:40px;padding-right:20px}
+.back{position:absolute;top:0;right:0;left:20px;height:120px;border:1px solid var(--rule);border-radius:4px;background:var(--tint);padding:10px 18px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.win{position:relative;border:1px solid var(--rule);border-top:3px solid var(--ink);border-radius:4px;background:var(--paper);box-shadow:0 1px 0 var(--rule),0 22px 44px -30px rgba(35,37,74,.35)}
+.win-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 20px;border-bottom:1px solid var(--rule);font-size:13px;font-weight:600;color:var(--ink-2)}
+.win-bar b{color:var(--ink);font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.win-bar b::before{content:"";width:8px;height:8px;background:var(--gold)}
+.proof{margin:0;padding:clamp(20px,2.4vw,32px);display:grid;grid-template-columns:minmax(0,1fr) 180px;column-gap:32px;align-items:start}
+.proof-text{font-family:var(--serif);font-size:clamp(24px,2.3vw,34px);line-height:1.42;font-weight:400;letter-spacing:-0.005em}
+.ins{background:var(--gold);color:var(--ink);font-weight:600;padding:0 .14em;text-decoration:none;box-decoration-break:clone;-webkit-box-decoration-break:clone;white-space:nowrap}
+.del{color:var(--ink-3);text-decoration:none;background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-position:0 58%;background-size:100% 2px}
+.notes{list-style:none;display:flex;flex-direction:column;gap:18px;padding-top:10px;font-size:14px;line-height:1.35;font-weight:500}
+.notes li{position:relative;padding-left:14px;border-left:1px solid var(--rule)}
+.notes li::before{content:"";position:absolute;left:-33px;top:.7em;width:32px;border-top:1px solid var(--rule)}
+.notes .ok{font-weight:600}
+.notes svg{vertical-align:-2px;margin-right:6px}
+@keyframes strike{from{background-size:0 2px}to{background-size:100% 2px}}
+@keyframes insert{from{background-color:transparent;color:transparent}to{background-color:var(--gold);color:var(--ink)}}
+@keyframes notein{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes peek{from{opacity:0;transform:translate(-12px,14px)}}
+@keyframes growx{from{transform:scaleX(0)}}
+@keyframes growy{from{transform:scaleY(0)}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes pop{from{opacity:0;transform:scale(.7)}}
+@keyframes press{50%{transform:scale(.94)}}
+@keyframes sweep{from{background-size:0 100%}}
+.hero h1{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards}
+.hero-copy{animation:rise .7s cubic-bezier(.2,.7,.2,1) .15s backwards}
+.win{animation:rise .8s cubic-bezier(.2,.7,.2,1) .3s backwards}
+.back{animation:peek .7s cubic-bezier(.2,.7,.2,1) .8s backwards}
+.proof .del{animation:strike .7s cubic-bezier(.6,0,.3,1) 1.3s backwards}
+.proof .ins{animation:insert .5s ease 2.1s backwards}
+.notes li{animation:notein .5s ease 2.7s backwards}
+.flow{border-block:1px solid var(--rule)}
+.flow .wrap{padding-block:28px;display:flex;align-items:center;justify-content:space-between;gap:24px 48px;flex-wrap:wrap}
+.steps{list-style:none;display:flex;align-items:center;flex-wrap:wrap;gap:6px 0;font-size:clamp(17px,1.5vw,21px);font-weight:500}
+.steps li{display:flex;align-items:center}
+.steps li+li::before{content:"";width:28px;height:9px;margin-inline:12px;background:linear-gradient(var(--ink-3),var(--ink-3)) left center/100% 1.5px no-repeat;clip-path:polygon(0 42%,78% 42%,78% 0,100% 50%,78% 100%,78% 58%,0 58%)}
+.steps .you{font-weight:700;box-shadow:inset 0 -6px 0 var(--gold-soft);padding-inline:2px}
+.steps .last{font-weight:700}
+.flow-time{font-size:15px;color:var(--ink-2)}
+.sec{padding-block:clamp(64px,9vw,128px)}
+.h2-l{font-size:clamp(34px,4.2vw,58px);line-height:1.02;letter-spacing:-0.03em}
+.h2-m{font-size:clamp(28px,3vw,42px);line-height:1.06;letter-spacing:-0.025em}
+.h2-s{font-size:clamp(20px,1.6vw,22px);line-height:1.2;letter-spacing:-0.01em}
+.sub{font-size:clamp(17px,1.4vw,19px);color:var(--ink-2);line-height:1.55}
+.research-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:clamp(40px,5vw,72px)}
+.research-head{grid-column:1 / span 5;display:flex;flex-direction:column;gap:22px}
+.feed{grid-column:7 / span 6;margin:0;display:grid;grid-template-columns:auto 56px auto;align-items:center;justify-content:start;column-gap:20px;align-self:center}
+.feed ul{list-style:none;display:flex;flex-direction:column;font-size:clamp(20px,1.8vw,26px);font-weight:500;line-height:1}
+.feed ul li{padding-block:12px;border-bottom:1px solid var(--rule)}
+.feed ul li:first-child{border-top:1px solid var(--rule)}
+.feed svg{width:56px;height:100%;display:block}
+.feed-out{font-weight:700;font-size:clamp(20px,1.8vw,26px);line-height:1.1;padding:18px 20px;border:1.5px solid var(--ink);border-radius:2px;background:var(--paper)}
+.reads{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;border-top:1px solid var(--ink);padding-top:20px}
+.reads>p{grid-column:1 / span 3;font-size:15px;font-weight:600}
+.reads ul{grid-column:4 / -1;list-style:none;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--serif);font-size:clamp(19px,1.6vw,23px);line-height:1.4}
+.reads li:not(:last-child)::after{content:"";display:inline-block;width:1px;height:.9em;background:var(--rule);margin-inline:18px;vertical-align:-.1em}
+.facts{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;align-items:end}
+.fact-big{grid-column:1 / span 4;display:flex;flex-direction:column;gap:8px}
+.fact-big .n{font-size:clamp(64px,8vw,120px);font-weight:600;line-height:.9;letter-spacing:-0.04em}
+.fact-big .n::after{content:"";display:block;width:56px;height:4px;background:var(--gold);margin-top:16px}
+.fact-big p:last-child{font-size:17px;color:var(--ink-2);max-width:16em}
+.fact-line{grid-column:span 4;font-size:clamp(19px,1.6vw,22px);line-height:1.4;font-weight:400;padding-top:16px;border-top:1px solid var(--rule)}
+.fact-line strong{font-weight:700}
+.feat-head{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(32px,4vw,56px)}
+.pipe{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1.1fr) 40px minmax(0,1fr);align-items:start}
+.arrow{align-self:start;margin-top:120px;display:flex;justify-content:center}
+.screen{border:1px solid var(--rule);border-radius:4px;background:var(--paper);box-shadow:0 1px 2px rgba(35,37,74,.06)}
+.feat{display:flex;flex-direction:column;gap:18px}
+.feat h3{font-size:20px;line-height:1.25;letter-spacing:-0.01em}
+.feat .d{color:var(--ink-2);font-size:16px;line-height:1.5;margin-top:6px}
+.form{padding:20px;display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field .lab{font-size:13px;font-weight:600}
+.field .val{font-size:15px;line-height:1.35;min-height:42px;border:1px solid var(--rule);border-radius:3px;padding:10px 12px;background:#fff}
+.form .go{align-self:flex-end;background:var(--ink);color:#fff;font-weight:600;font-size:15px;border-radius:3px;padding:10px 16px}
+.mid{display:flex;flex-direction:column}
+.mid .feat{padding-block:22px;border-top:1px solid var(--rule)}
+.mid .feat:first-child{padding-top:0;border-top:0}
+.geo{display:flex;gap:20px;align-items:flex-start}
+.geo-n{flex:none;display:flex;flex-direction:column;gap:8px;width:84px}
+.geo-n b{font-size:48px;line-height:.9;font-weight:600;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.meter{height:4px;background:var(--rule);position:relative}
+.meter::after{content:"";position:absolute;inset:0 17% 0 0;background:var(--gold)}
+.check{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+.check li{display:flex;gap:8px;align-items:center}
+.check .todo{color:var(--ink-2)}
+.imgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ph{border:1px dashed #9C9EB8;border-radius:2px;display:grid;place-items:center;text-align:center;font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:.02em;padding:6px;aspect-ratio:1}
+.wp{padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.wp-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.badge{background:var(--gold);border-radius:2px;padding:2px 8px;font-size:13px;font-weight:700}
+.wp-title{font-weight:700;font-size:17px;line-height:1.3;padding-top:4px}
+.wp-slug{font-size:13px;color:var(--ink-2);font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.sample{background:var(--tint)}
+.sample-head{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(28px,4vw,48px)}
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:2px;box-shadow:0 1px 0 var(--rule),0 18px 40px -28px rgba(35,37,74,.28);padding:clamp(24px,5vw,72px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);column-gap:clamp(28px,4vw,64px);row-gap:32px}
+.article{display:flex;flex-direction:column;gap:22px;max-width:36em}
+.article h3{font-family:var(--serif);font-weight:600;font-size:clamp(26px,2.7vw,38px);line-height:1.15;letter-spacing:-0.01em}
+.article p{font-family:var(--serif);font-size:clamp(18px,1.45vw,21px);line-height:1.62}
+.refs{border-left:1px solid var(--rule);padding-left:clamp(20px,3vw,40px);display:flex;flex-direction:column;gap:14px;align-self:start}
+.refs-h{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.refs ol{padding-left:1.4em;display:flex;flex-direction:column;gap:12px;font-family:var(--serif);font-size:16px;line-height:1.45}
+.refs ol li::marker{font-family:var(--sans);font-weight:600;font-size:14px}
+.refs .more{font-size:14px;color:var(--ink-2)}
+.colophon{margin:20px 0 0;display:flex;flex-wrap:wrap;gap:12px 0;font-size:15px;color:var(--ink-2)}
+.colophon div{display:flex;gap:8px;align-items:baseline;padding-right:24px;margin-right:24px;border-right:1px solid var(--rule)}
+.colophon div:last-child{border-right:0}
+.colophon dt{font-weight:700;color:var(--ink);font-size:17px}
+.colophon dd{margin:0}
+.cust{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:40px}
+.cust h2{grid-column:1 / span 3}
+.logos{grid-column:4 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--rule)}
+.logos div{height:84px;display:grid;place-items:center;font-weight:600;color:var(--ink-2);font-size:14px;letter-spacing:.02em}
+.logos div+div{border-left:1px solid var(--rule)}
+.quote{grid-column:4 / -1;margin:0;display:flex;flex-direction:column;gap:20px;padding-left:clamp(0px,2vw,24px)}
+.quote blockquote{margin:0;font-family:var(--serif);font-size:clamp(24px,2.6vw,36px);line-height:1.3;max-width:24em}
+.quote blockquote::before{content:"";display:block;width:40px;height:4px;background:var(--gold);margin-bottom:20px}
+.quote figcaption{font-size:15px;font-weight:600;color:var(--ink-2)}
+.price{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:32px;border-top:1px solid var(--rule)}
+.price>h2{grid-column:1 / span 3;padding-top:clamp(64px,9vw,128px)}
+.plans{grid-column:4 / -1;padding-top:clamp(64px,9vw,128px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.85fr);grid-template-rows:auto auto auto auto;column-gap:0}
+.plan{display:grid;grid-template-rows:subgrid;grid-row:span 4;padding-inline:28px;border-left:1px solid var(--rule)}
+.plan:first-child{padding-left:0;border-left:0}
+.plan h3{font-size:20px;padding-bottom:14px;border-bottom:1px solid var(--ink)}
+.plan.team h3{border-bottom:4px solid var(--gold);padding-bottom:11px}
+.plan .amt{font-size:clamp(40px,4vw,56px);font-weight:600;line-height:1;letter-spacing:-0.03em;padding-block:22px;font-variant-numeric:tabular-nums}
+.plan .amt span{font-size:16px;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+.plan ul{list-style:none;display:flex;flex-direction:column}
+.plan ul li{padding-block:11px;border-top:1px solid var(--rule);font-size:16px}
+.plan ul li:last-child{border-bottom:1px solid var(--rule)}
+.plan .btn{margin-top:24px;align-self:start}
+.more-plan{grid-row:span 4;padding-left:28px;border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:12px}
+.more-plan h3{font-size:20px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+.more-plan p{color:var(--ink-2);font-size:16px}
+.more-plan a{font-weight:600;padding-block:10px;align-self:flex-start}
+.faq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;border-top:1px solid var(--rule)}
+.faq h2{grid-column:1 / span 3;padding-top:clamp(64px,9vw,128px)}
+.faq-list{grid-column:4 / span 8;border-top:1px solid var(--ink);margin-top:clamp(64px,9vw,128px)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:600;font-size:clamp(18px,1.6vw,21px);line-height:1.3}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:14px;height:14px;background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat,linear-gradient(var(--ink),var(--ink)) center/2px 14px no-repeat}
+.faq details[open] summary::after{background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat}
+.faq details p{padding:0 0 24px;color:var(--ink-2);max-width:36em;font-size:17px}
+.close{background:var(--ink);color:var(--on-ink)}
+.close-in{padding-block:clamp(72px,10vw,140px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:28px;align-items:end}
+.close h2{grid-column:1 / span 7;font-size:clamp(46px,7vw,100px);line-height:.98;letter-spacing:-0.035em;color:#fff}
+.close h2::after{content:"";display:block;height:3px;background:var(--gold);margin-top:24px;width:100%}
+.close-side{grid-column:9 / span 4;display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.close-side p{font-size:19px;color:var(--on-ink-2)}
+.close .btn{min-height:54px;padding:0 28px;font-size:17px}
+.np .close a:focus-visible{outline-color:var(--gold)}
+.np footer{background:var(--ink);color:var(--on-ink-2)}
+.np footer .wrap{border-top:1px solid var(--rule-on-ink);padding-block:22px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;font-size:14px}
+.np footer nav{display:flex;gap:24px}
+.np footer a{color:var(--on-ink-2);display:inline-block;padding:12px 0;text-decoration-color:var(--rule-on-ink)}
+.np footer a:hover{color:#fff;text-decoration-color:var(--gold)}
+.np footer a:focus-visible{outline-color:var(--gold)}
+.np li:nth-child(2),.ph:nth-child(2),.plans>:nth-child(2){--i:1}
+.np li:nth-child(3),.ph:nth-child(3),.plans>:nth-child(3){--i:2}
+.np li:nth-child(4){--i:3}.np li:nth-child(5){--i:4}.np li:nth-child(6){--i:5}.np li:nth-child(7){--i:6}
+html.rv-on .np [data-rv]{opacity:0;transform:translateY(16px);transition:opacity .6s ease var(--d,0s),transform .6s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+html.rv-on .np [data-rv].in{opacity:1;transform:none}
+.np .in .steps li{animation:rise .45s ease calc(var(--i,0) * .16s + .1s) backwards}
+.np .in .steps li+li::before{transform-origin:left;animation:growx .35s ease calc(var(--i,0) * .16s + .1s) backwards}
+.np .in .flow-time{animation:notein .5s ease 1.4s backwards}
+.feed.in ul li{animation:rise .4s ease calc(var(--i,0) * .1s + .2s) backwards}
+.feed.in svg{animation:wipe .6s ease .7s backwards}
+.feed.in .feed-out{animation:pop .45s cubic-bezier(.2,.9,.3,1.2) 1.2s backwards}
+.facts.in .n::after{transform-origin:left;animation:growx .7s ease .4s backwards}
+.facts.in .fact-line{animation:rise .5s ease .3s backwards}
+.facts.in .fact-line+.fact-line{animation-delay:.45s}
+.ty{display:inline-block}
+.in .ty{animation:wipe 1.1s steps(28,end) .5s backwards}
+.in .field+.field .ty{animation-duration:.9s;animation-delay:1.7s}
+.in .go{animation:press .35s ease 2.8s}
+.in .meter::after{transform-origin:left;animation:growx 1s cubic-bezier(.3,.7,.2,1) .4s backwards}
+.in .check li{animation:rise .4s ease calc(var(--i,0) * .18s + .7s) backwards}
+.in .ph{animation:pop .4s ease calc(var(--i,0) * .12s + .5s) backwards}
+.in .wp-title{animation:notein .5s ease .5s backwards}
+.in .badge{animation:pop .4s cubic-bezier(.2,.9,.3,1.3) .9s backwards}
+.np .sweep{background:linear-gradient(var(--gold),var(--gold)) left / 100% 100% no-repeat}
+.sheet.in .sweep{animation:sweep .8s ease .6s backwards}
+.sheet.in .refs li{animation:rise .45s ease calc(var(--i,0) * .15s + .8s) backwards}
+.quote.in blockquote::before{transform-origin:left;animation:growx .6s ease .3s backwards}
+.plans.in>*{animation:rise .5s ease calc(var(--i,0) * .12s + .1s) backwards}
+.close-in.in h2::after{transform-origin:left;animation:growx .9s cubic-bezier(.3,.7,.2,1) .3s backwards}
+.faq details[open] p{animation:notein .3s ease}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.np,.np *,.np *::before,.np *::after{animation:none!important;transition:none!important}html.rv-on .np [data-rv]{opacity:1;transform:none}}
+@media (max-width:1040px){
+.hero h1{grid-column:1 / -1}
+.hero-copy{grid-column:1 / span 5}
+.stage{grid-column:6 / -1}
+.proof{grid-template-columns:minmax(0,1fr)}
+.notes{flex-direction:row;flex-wrap:wrap;gap:10px 24px;padding-top:20px}
+.notes li{border-left:0;padding-left:0}
+.notes li::before{display:none}
+.pipe{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px 32px}
+.pipe .arrow{display:none}
+.pipe .mid{grid-column:1 / -1;grid-row:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px}
+.mid .feat,.mid .feat:first-child{padding-top:20px;border-top:1px solid var(--ink)}
+.plans{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.more-plan{grid-column:1 / -1;grid-row:auto;padding:28px 0 0;border-left:0;margin-top:32px;border-top:1px solid var(--rule)}
+.more-plan h3{border-bottom:0;padding-bottom:0}
+.price,.cust,.faq{grid-template-columns:minmax(0,1fr)}
+.price>h2,.cust h2,.faq h2{grid-column:1 / -1}
+.plans,.logos,.quote,.faq-list{grid-column:1 / -1}
+.plans{padding-top:0}
+.faq-list{margin-top:28px}
+.close h2{grid-column:1 / -1}
+.close-side{grid-column:1 / span 8}
+}
+@media (max-width:720px){
+.np{font-size:16px}
+.top{flex-wrap:wrap;padding-block:12px 0;row-gap:0}
+.mark{font-size:17px}
+.nav{display:contents}
+.nav-links{order:3;width:100%;gap:22px;border-top:1px solid var(--rule);margin-top:12px}
+.top .btn{min-height:44px;padding:0 14px}
+.hero{grid-template-columns:minmax(0,1fr);padding-top:36px}
+.hero h1,.hero-copy,.stage{grid-column:1}
+.stage{padding-right:10px;padding-top:36px}
+.back{left:10px}
+.np .in .steps li+li::before{transform-origin:top;animation-name:growy}
+.hero h1{font-size:clamp(44px,12.5vw,56px);letter-spacing:-0.03em}
+.hero-copy{gap:20px}
+.btns{width:100%}
+.btns .btn{flex:1 1 140px}
+.proof{padding:20px}
+.proof-text{font-size:clamp(24px,7vw,28px);line-height:1.45}
+.steps{flex-direction:column;align-items:stretch;gap:0;font-size:18px;width:100%}
+.steps li{padding:9px 0 9px 26px;position:relative}
+.steps li::after{content:"";position:absolute;left:4px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.steps li+li::before{position:absolute;left:8px;top:-50%;height:100%;width:1.5px;margin:0;background:var(--ink-3);clip-path:none}
+.steps .you{box-shadow:none;padding:9px 0 9px 26px}
+.steps .you::after{background:var(--gold);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.steps .last::after{background:var(--ink)}
+.steps .you span{box-shadow:inset 0 -6px 0 var(--gold-soft)}
+.research-grid,.reads,.facts{grid-template-columns:minmax(0,1fr);row-gap:28px}
+.research-head,.feed,.reads>p,.reads ul,.fact-big,.fact-line{grid-column:1}
+.reads{row-gap:10px}
+.reads ul{flex-direction:column;gap:0}
+.reads li{padding-block:8px;border-bottom:1px solid var(--rule)}
+.reads li:not(:last-child)::after{display:none}
+.feed{grid-template-columns:minmax(0,1fr) 36px minmax(0,1fr);column-gap:12px}
+.feed svg{width:36px}
+.feed-out{padding:14px}
+.facts{row-gap:0}
+.fact-big{padding-bottom:28px}
+.fact-line{padding-block:16px}
+.pipe{grid-template-columns:minmax(0,1fr);gap:0}
+.pipe>*{grid-column:1!important;grid-row:auto!important}
+.pipe .mid{display:flex;flex-direction:column;margin-block:36px}
+.mid .feat,.mid .feat:first-child{padding-block:20px 0;border-top:1px solid var(--rule)}
+.mid .feat+.feat{margin-top:20px}
+.sheet{grid-template-columns:minmax(0,1fr);padding:24px 20px 28px;margin-inline:calc(var(--gutter) * -0.5)}
+.refs{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:20px}
+.colophon{flex-direction:column;gap:0}
+.colophon div{border-right:0;margin:0;padding:10px 0;border-bottom:1px solid var(--rule)}
+.logos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.logos div:nth-child(3){border-left:0}
+.logos div:nth-child(n+3){border-top:1px solid var(--rule)}
+.quote{padding-left:0}
+.plan{padding-inline:16px}
+.plan h3{font-size:18px}
+.plan .amt{font-size:34px;padding-block:18px}
+.plan .amt span{display:block;font-size:14px;margin-top:6px}
+.plan ul li{font-size:15px;line-height:1.35}
+.plan .btn{width:100%;padding:0 8px;font-size:15px}
+.faq-list{margin-top:20px}
+.close .btn{width:100%}
+.close-in{grid-template-columns:minmax(0,1fr)}
+.close h2,.close-side{grid-column:1}
+}
+@media (max-width:370px){
+.mark{font-size:16px}
+.top .btn{padding:0 12px;font-size:14px}
+.plan{padding-inline:12px}
+}
+</style>
+</helmet>
+<div id="top" class="np">
+
+<header class="wrap top">
+<a href="#top" class="mark">New Perspectives <span>AI</span></a>
+<nav class="nav" aria-label="Main">
+<span class="nav-links">
+<a href="#research">Research</a>
+<a href="#features">What it does</a>
+<a href="#pricing">Pricing</a>
+</span>
+<a class="btn btn-ink" href="#demo">Book a demo</a>
+</nav>
+</header>
+
+<section class="wrap hero">
+<h1>Articles that did the reading first.</h1>
+<div class="hero-copy">
+<p class="lede">New Perspectives AI researches your topic, writes the article, checks every claim, and hands you a draft ready for WordPress.</p>
+<div class="btns">
+<a class="btn btn-ink" href="#demo">Book a demo</a>
+<a class="btn btn-line" href="#features">See what it does</a>
+</div>
+<p class="who">Built for treatment and mental health websites.</p>
+</div>
+<div class="stage">
+<div class="back" aria-hidden="true">Research report</div>
+<div class="win">
+<div class="win-bar" aria-hidden="true"><b>Fact-check</b><span>Benzodiazepine Taper Timeline</span></div>
+<figure class="proof" aria-label="Fact-check example: the claim that a taper usually takes six weeks is struck out and corrected to months to years">
+<p class="proof-text">A full taper can take <ins class="ins">months to years</ins>, <del class="del">usually six weeks</del> depending on dose and how long it was taken.</p>
+<ul class="notes">
+<li class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#23254A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Matches the 2025 guideline</li>
+<li>1 claim corrected</li>
+</ul>
+</figure>
+</div>
+</div>
+</section>
+
+<section class="flow" aria-label="How an article moves through the tool">
+<div class="wrap" data-rv="">
+<ol class="steps">
+<li>Research</li>
+<li>Writing</li>
+<li>Fact-check</li>
+<li>Images</li>
+<li>SEO</li>
+<li class="you"><span>Your review</span></li>
+<li class="last">WordPress</li>
+</ol>
+<p class="flow-time">About 12 minutes from a title to a finished draft.</p>
+</div>
+</section>
+
+<section id="research" class="wrap sec">
+<div class="research-grid">
+<div class="research-head" data-rv="">
+<h2 class="h2-l">The research is the hard part. It does that first.</h2>
+<p class="sub">Before a word is written, it reads clinical guidelines, studies and government pages on your topic, and keeps every link.</p>
+</div>
+<figure class="feed" data-rv="" style="--d: .15s" aria-label="Four kinds of sources, guidelines, studies, government and reviews, gathered into one research report">
+<ul>
+<li>Guidelines</li>
+<li>Studies</li>
+<li>Government</li>
+<li>Reviews</li>
+</ul>
+<svg viewBox="0 0 56 200" preserveAspectRatio="none" aria-hidden="true"><path d="M2 2 C 26 2, 26 2, 26 30 L 26 84 C 26 98, 34 100, 54 100 C 34 100, 26 102, 26 116 L 26 170 C 26 198, 26 198, 2 198" fill="none" stroke="#23254A" stroke-width="1.5" vector-effect="non-scaling-stroke"></path></svg>
+<p class="feed-out">Research report</p>
+</figure>
+<div class="reads" data-rv="">
+<p>It reads from</p>
+<ul>
+<li>PubMed Central</li>
+<li>ASAM guidelines</li>
+<li>SAMHSA</li>
+<li>Government health agencies</li>
+<li>Peer-reviewed journals</li>
+</ul>
+</div>
+<div class="facts" data-rv="">
+<div class="fact-big">
+<p class="n">9,000+</p>
+<p>words of research behind a single article</p>
+</div>
+<p class="fact-line"><strong>Every</strong> statistic links to the source it came from</p>
+<p class="fact-line"><strong>No source, no claim.</strong> Unsupported numbers are left out.</p>
+</div>
+</div>
+</section>
+
+<section id="features" class="wrap sec" style="border-top: 1px solid #D5D6DF">
+<div class="feat-head" data-rv="">
+<h2 class="h2-l" style="max-width: 12em">One form in. A finished draft out.</h2>
+</div>
+<div class="pipe">
+
+<article class="feat" data-rv="">
+<div class="screen form">
+<div class="field"><span class="lab">Article title</span><span class="val"><span class="ty">How long does a benzodiazepine taper take?</span></span></div>
+<div class="field"><span class="lab">Keywords</span><span class="val"><span class="ty">benzo taper schedule, taper timeline</span></span></div>
+<span class="go">Start the article</span>
+</div>
+<div>
+<h3>Start with a title</h3>
+<p class="d">Model, prompts and research settings are already chosen for you.</p>
+</div>
+</article>
+
+<div class="arrow" aria-hidden="true"><svg width="28" height="12" viewBox="0 0 28 12"><path d="M0 6h26M21 1l5 5-5 5" fill="none" stroke="#5E6185" stroke-width="1.5"></path></svg></div>
+
+<div class="mid" data-rv="" style="--d: .15s">
+<article class="feat">
+<div>
+<h3>Every claim is checked</h3>
+<p class="d">A second pass reads the draft against the research and fixes what does not hold up.</p>
+</div>
+</article>
+<article class="feat">
+<div class="geo">
+<div class="geo-n" role="img" aria-label="GEO score 83 out of 100"><b>83</b><span class="meter"></span></div>
+<ul class="check">
+<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#23254A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Direct answer on top</li>
+<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#23254A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Numbers linked</li>
+<li class="todo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B5822A" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Add an expert quote</li>
+</ul>
+</div>
+<div>
+<h3>Scored for AI search</h3>
+<p class="d">See what would make AI answers quote the page.</p>
+</div>
+</article>
+<article class="feat">
+<div class="imgs">
+<div class="ph">[ARTICLE IMAGE]</div>
+<div class="ph">[ARTICLE IMAGE]</div>
+<div class="ph">[ARTICLE IMAGE]</div>
+</div>
+<div>
+<h3>Images that fit</h3>
+<p class="d">Three images per article, with alt text written.</p>
+</div>
+</article>
+</div>
+
+<div class="arrow" aria-hidden="true"><svg width="28" height="12" viewBox="0 0 28 12"><path d="M0 6h26M21 1l5 5-5 5" fill="none" stroke="#5E6185" stroke-width="1.5"></path></svg></div>
+
+<article class="feat" data-rv="" style="--d: .3s">
+<div class="screen wp">
+<div class="wp-top"><span>yoursite.com</span><span class="badge">Draft</span></div>
+<p class="wp-title">Benzodiazepine Taper Timeline</p>
+<p class="wp-slug">/benzodiazepine-taper</p>
+</div>
+<div>
+<h3>Lands in WordPress</h3>
+<p class="d">Title, description and slug included. You approve before anything goes live.</p>
+</div>
+</article>
+
+</div>
+</section>
+
+<section id="sample" class="sample">
+<div class="wrap sec">
+<div class="sample-head" data-rv="">
+<h2 class="h2-m">A real draft, with its sources.</h2>
+<p class="sub">This one started as a title and three keywords.</p>
+</div>
+<div class="sheet" data-rv="">
+<div class="article">
+<h3>How Does a Benzodiazepine Taper Work, and How Long Does It Take? (2026)</h3>
+<p>A benzodiazepine taper lowers your total daily dose in small steps, with a pause after each step to check how you feel. A full taper can take <mark class="ins sweep">months to years</mark>, especially after high doses taken for a long time.</p>
+</div>
+<aside class="refs" aria-label="Sources">
+<p class="refs-h">Sources</p>
+<ol>
+<li>Joint clinical practice guideline on benzodiazepine tapering. ASAM, 2025.</li>
+<li>Clinician guide to helping patients taper. ASAM, 2025.</li>
+</ol>
+<p class="more">and the rest of the list, linked in the draft</p>
+</aside>
+</div>
+<dl class="colophon" data-rv="">
+<div><dt>12 min</dt><dd>from start to finished draft</dd></div>
+<div><dt>1,780</dt><dd>words written</dd></div>
+<div><dt>83</dt><dd>GEO score out of 100</dd></div>
+</dl>
+</div>
+</section>
+
+<section aria-label="Customers" class="wrap sec">
+<div class="cust">
+<h2 class="h2-s">Teams publishing with it</h2>
+<div class="logos" data-rv="">
+<div>[CLIENT LOGO]</div>
+<div>[CLIENT LOGO]</div>
+<div>[CLIENT LOGO]</div>
+<div>[CLIENT LOGO]</div>
+</div>
+<figure class="quote" data-rv="">
+<blockquote>[CUSTOMER QUOTE: one or two sentences on the result they got]</blockquote>
+<figcaption>[NAME], [ROLE] at [COMPANY]</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="pricing" class="wrap" style="padding-bottom: clamp(64px,9vw,128px)">
+<div class="price">
+<h2 class="h2-m">Pricing</h2>
+<div class="plans" data-rv="">
+
+<div class="plan">
+<h3>Starter</h3>
+<p class="amt">$399<span> a month</span></p>
+<ul>
+<li>60 articles a month</li>
+<li>1 WordPress site</li>
+<li>Research, fact-check and SEO</li>
+<li>GEO score and images</li>
+</ul>
+<a class="btn btn-line" href="#demo">Book a demo</a>
+</div>
+
+<div class="plan team">
+<h3>Team</h3>
+<p class="amt">$799<span> a month</span></p>
+<ul>
+<li>200 articles a month</li>
+<li>5 WordPress sites</li>
+<li>Everything in Starter</li>
+<li>Your own prompts and house rules</li>
+</ul>
+<a class="btn btn-ink" href="#demo">Book a demo</a>
+</div>
+
+<div class="more-plan">
+<h3>Need more?</h3>
+<p>More than 200 articles or 5 sites a month? We will set up a plan around your volume.</p>
+<a href="#demo">Talk to us</a>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="faq" class="wrap" style="padding-bottom: clamp(64px,9vw,128px)">
+<div class="faq">
+<h2 class="h2-m">Questions</h2>
+<div class="faq-list" data-rv="">
+<details open="">
+<summary>Does it publish on its own?</summary>
+<p>No. Every article waits for your review, and nothing reaches your site until you approve it.</p>
+</details>
+<details>
+<summary>Is it safe for medical topics?</summary>
+<p>Facts and numbers come only from the research, each with its link. A separate fact-check pass corrects the draft, and your reviewer has the final say.</p>
+</details>
+<details>
+<summary>Will it sound like us?</summary>
+<p>You set the writing prompt, house rules, approved terms and client details once. Every article follows them.</p>
+</details>
+<details>
+<summary>What do we need to start?</summary>
+<p>A WordPress site and a title. Connecting a site takes a few minutes.</p>
+</details>
+</div>
+</div>
+</section>
+
+<section id="demo" class="close">
+<div class="wrap close-in" data-rv="">
+<h2>Give it one title.</h2>
+<div class="close-side">
+<p>Watch it research, write and check an article on a topic you choose.</p>
+<a class="btn btn-gold" href="mailto:[YOUR EMAIL]">Book a demo</a>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<span>© 2026 New Perspectives AI</span>
+<nav aria-label="Footer"><a href="#research">Research</a><a href="#features">What it does</a><a href="#pricing">Pricing</a></nav>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6320}}'>
+class Component extends DCLogic {
+componentDidMount() {
+try {
+var root = document.querySelector('.np');
+if (!root || !('IntersectionObserver' in window)) return;
+var els = root.querySelectorAll('[data-rv]');
+document.documentElement.classList.add('rv-on');
+var io = new IntersectionObserver(function (entries) {
+entries.forEach(function (e) {
+if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+});
+}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+els.forEach(function (el) { io.observe(el); });
+this._io = io;
+} catch (err) {
+document.documentElement.classList.remove('rv-on');
+}
+}
+componentWillUnmount() {
+if (this._io) this._io.disconnect();
+document.documentElement.classList.remove('rv-on');
+}
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

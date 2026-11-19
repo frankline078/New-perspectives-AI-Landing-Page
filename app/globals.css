@@ -1,0 +1,2251 @@
+/*
+ * Tailwind's base reset (preflight) is ON. Everything on the page is a named
+ * component class below. Colours, fonts and the one easing live in @theme.
+ *
+ * Layout follows a product-directory page: white sticky header with a pill
+ * nav, a dotted hero band with the product card and a floating
+ * app capture, a sticky segmented control, then gallery rows of white cards.
+ */
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f5fb;
+  --color-card: #ffffff;
+  --color-ink: #23254a;
+  --color-ink-2: #34377a;
+  --color-muted: #4d507c;
+  --color-faint: #8386b0;
+  --color-line: #e2e0f4;
+  --color-lilac: #e7e5f8;
+  --color-lilac-2: #d9d7f2;
+  --color-gold: #e5a93a;
+
+  --font-sans: var(--font-instrument), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-bricolage), var(--font-instrument), system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Arrivals: fast start, long settle. Used by the hero entrance, the
+     sliding nav pill and the fact-check sequence. */
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    /* Lets <details> animate to its natural height (see .faq). */
+    interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
+    scroll-padding-top: 140px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    /* White ground. The page gets its rhythm from bands: a dotted lilac
+       hero, a paper band for Sources, an ink band for the close. */
+    background-color: var(--color-card);
+    color: var(--color-ink);
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  /* No double-tap-zoom wait on controls, so taps register at once. */
+  a,
+  button,
+  summary {
+    touch-action: manipulation;
+  }
+  /* A long press on a control should not select its label. */
+  .btn,
+  .menu-btn,
+  .tabs a,
+  summary {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  /* The page stays put behind the open mobile menu. */
+  html:has(.menu[open]) {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------ page */
+
+  .np {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  .np h1,
+  .np h2,
+  .np h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .np h1 {
+    font-size: clamp(34px, 4.4vw, 46px);
+    line-height: 1;
+    font-weight: 800;
+  }
+  .np h2 {
+    font-size: clamp(26px, 3vw, 32px);
+    line-height: 1.1;
+  }
+  .np h3 {
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .np p {
+    text-wrap: pretty;
+  }
+  .np s {
+    color: var(--color-faint);
+  }
+  .np mark {
+    background: var(--color-gold);
+    color: var(--color-ink);
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .np :focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+
+  .wrap {
+    /* The side gutter. With viewport-fit=cover, a phone in landscape puts
+       the notch inside the page, so the gutter grows to clear it. */
+    --gutter: clamp(16px, 4vw, 40px);
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .muted {
+    color: var(--color-muted);
+  }
+
+  /* ------------------------------------------------------- buttons */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
+    background: var(--color-ink);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    border: 1.5px solid var(--color-ink);
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.15s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+      background: var(--color-ink-2);
+      border-color: var(--color-ink-2);
+    }
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-light {
+    background: var(--color-card);
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-light:hover {
+      background: var(--color-paper);
+      border-color: var(--color-lilac-2);
+    }
+  }
+  .btn-gold {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-ink);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-gold:hover {
+      background: #f0b647;
+      border-color: #f0b647;
+    }
+  }
+  .btn-sm {
+    min-height: 32px;
+    padding-inline: 12px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  .btn-lg {
+    min-height: 48px;
+    padding-inline: 22px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  /* ------------------------------------------------------------ count */
+
+  .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding-inline: 6px;
+    border-radius: 7px;
+    background: var(--color-lilac);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .count-gold {
+    background: var(--color-gold);
+  }
+
+  /* ---------------------------------------------------------- header */
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    /* Solid white, so the page's dot grid stops cleanly at the header. */
+    background: var(--color-card);
+    border-bottom: 1px solid var(--color-line);
+    box-shadow: 0 1px 0 rgb(255 255 255), 0 2px 10px -6px rgb(35 37 74 / 0.12);
+  }
+  .header-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .header-mid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+  .pills {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .pills a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink);
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pills a:hover {
+      background: var(--color-lilac);
+    }
+  }
+  /* The white pill under the active link: one element that slides. */
+  .pills-on {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    border-radius: 999px;
+    background: var(--color-card);
+    box-shadow: 0 1px 2px rgb(35 37 74 / 0.12);
+    transition: opacity 0.2s ease;
+  }
+  .pills-on[data-slide] {
+    transition:
+      transform 0.38s var(--ease-arrive),
+      width 0.38s var(--ease-arrive),
+      opacity 0.2s ease;
+  }
+  .pills a.is-on,
+  .pills a.is-on:hover {
+    background: transparent;
+  }
+  .header-end {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ------------------------------------------------------ mobile menu */
+
+  /* A soft pill: the word "Menu" beside two lines of unequal length
+     (the label is hidden from screen readers; aria-label says it).
+     The short line reaches full length on hover. The open state (lines
+     crossed into an X, no label) only lives on the close button inside
+     the dialog, which sits where this one does. */
+  .menu-btn {
+    display: none;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 40px;
+    padding: 0 14px 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-paper);
+    box-shadow: inset 0 0 0 1px var(--color-line);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .menu-btn:hover {
+      background: var(--color-lilac);
+      box-shadow: inset 0 0 0 1px var(--color-lilac-2);
+    }
+    .menu-btn:hover .menu-lines::before {
+      width: 18px;
+      margin-left: 0;
+    }
+  }
+  .menu-btn:active {
+    transform: scale(0.95);
+    background: var(--color-lilac);
+  }
+  .menu-label {
+    line-height: 1;
+  }
+  .menu-lines,
+  .menu-lines::before {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      width 0.25s var(--ease-out),
+      margin 0.25s var(--ease-out);
+  }
+  .menu-lines {
+    position: relative;
+    top: -3px;
+  }
+  .menu-lines::before {
+    content: "";
+    position: relative;
+    top: 6px;
+    width: 11px;
+    margin-left: 7px;
+  }
+  .menu-btn.is-open {
+    width: 40px;
+    padding: 0;
+  }
+  .menu-btn.is-open .menu-lines,
+  .menu-btn.is-open .menu-lines::before {
+    width: 16px;
+    margin-left: 0;
+  }
+  .menu-btn.is-open .menu-lines {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  .menu-btn.is-open .menu-lines::before {
+    top: 0;
+    transform: rotate(-90deg);
+  }
+
+  /* A floating sheet from the left. The dialog fills the screen so a tap
+     on the overlay lands on it (and closes it); the sheet sits 8px in from
+     the edges with large rounded corners, over a blurred, dimmed page. */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .menu::backdrop {
+    background: rgb(35 37 74 / 0.32);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+  .menu-panel {
+    position: absolute;
+    top: max(8px, env(safe-area-inset-top, 0px));
+    bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    left: max(8px, env(safe-area-inset-left, 0px));
+    width: min(calc(100% - 52px), 400px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 12px;
+    border-radius: 24px;
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgb(231 229 248 / 0.7), transparent 60%),
+      var(--color-card);
+    border: 1px solid rgb(255 255 255 / 0.8);
+    box-shadow:
+      0 0 0 1px rgb(35 37 74 / 0.06),
+      0 24px 60px -12px rgb(35 37 74 / 0.45),
+      0 8px 20px -8px rgb(35 37 74 / 0.2);
+  }
+  .menu-panel .wrap {
+    width: 100%;
+    margin: 0;
+    padding-inline: 12px;
+  }
+  .menu .header-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    height: 64px;
+    padding-left: 18px;
+  }
+  .menu .logo {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .menu .menu-btn {
+    display: grid;
+    border-radius: 999px;
+    border-color: transparent;
+    background: var(--color-paper);
+  }
+  .menu-links {
+    display: grid;
+    gap: 2px;
+    padding-block: 12px 8px;
+  }
+  .menu-eyebrow {
+    padding: 0 10px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+  .menu-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 16px;
+    transition:
+      background-color 0.15s ease,
+      transform 0.15s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .menu-links a:hover {
+      background: var(--color-paper);
+    }
+  }
+  .menu-links a:active {
+    background: var(--color-lilac);
+    transform: scale(0.98);
+  }
+  .menu-num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: var(--color-lilac);
+    color: var(--color-ink-2);
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+  .menu-links a:active .menu-num {
+    background: var(--color-ink);
+    color: var(--color-gold);
+  }
+  .menu-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .menu-links b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .menu-links small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: var(--color-muted);
+  }
+  .menu-go {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    color: var(--color-faint);
+    transition:
+      transform 0.2s var(--ease-out),
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .menu-links a:hover .menu-go {
+      transform: translateX(3px);
+      color: var(--color-ink);
+      background: var(--color-card);
+    }
+  }
+  /* Log in and Book a demo sit at the foot of the sheet, in thumb reach,
+     on a soft inset tray. */
+  .menu-panel .menu-actions {
+    display: grid;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+  .menu-actions .btn {
+    border-radius: 14px;
+  }
+  .menu-actions .btn:not(.btn-light) {
+    box-shadow: 0 8px 20px -10px rgb(35 37 74 / 0.6);
+  }
+
+  /* Opens: the sheet slides in while the overlay fades up, then the links
+     follow one after another. Closes faster than it opens. The dialog
+     itself never fades (that would fade the sheet too); it only stays
+     rendered until the slide out has finished. */
+  .menu {
+    transition:
+      overlay 0.22s allow-discrete,
+      display 0.22s allow-discrete;
+  }
+  .menu::backdrop {
+    transition:
+      opacity 0.22s ease,
+      overlay 0.22s allow-discrete,
+      display 0.22s allow-discrete;
+  }
+  .menu-panel {
+    transition:
+      transform 0.22s cubic-bezier(0.4, 0, 1, 1),
+      opacity 0.22s ease;
+  }
+  .menu:not([open])::backdrop {
+    opacity: 0;
+  }
+  .menu:not([open]) .menu-panel {
+    transform: translateX(calc(-100% - 16px));
+  }
+  .menu[open]::backdrop {
+    transition-duration: 0.3s;
+  }
+  .menu[open] .menu-panel {
+    transition: transform 0.42s var(--ease-arrive);
+  }
+  .menu[open] .menu-links a {
+    transition:
+      opacity 0.4s ease calc(0.08s + var(--i, 0) * 0.04s),
+      transform 0.5s var(--ease-arrive) calc(0.08s + var(--i, 0) * 0.04s),
+      background-color 0.15s ease;
+  }
+  @starting-style {
+    .menu[open]::backdrop {
+      opacity: 0;
+    }
+    .menu[open] .menu-panel {
+      transform: translateX(calc(-100% - 16px));
+    }
+    .menu[open] .menu-links a {
+      opacity: 0;
+      transform: translateX(-12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu[open] .menu-panel,
+    .menu-panel {
+      transition: opacity 0.2s ease;
+    }
+    .menu:not([open]) .menu-panel {
+      transform: none;
+      opacity: 0;
+    }
+    .menu[open] .menu-links a {
+      transition: background-color 0.15s ease;
+    }
+    @starting-style {
+      .menu[open] .menu-panel {
+        transform: none;
+        opacity: 0;
+      }
+      .menu[open] .menu-links a {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------ hero */
+
+  /* The hero sits on lilac with the dot grid; both fade into the white
+     page below, so the band has no hard bottom edge. */
+  .hero-band {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(var(--color-paper) 55%, var(--color-card));
+  }
+  .hero-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(rgb(35 37 74 / 0.11) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    background-position: 11px 11px;
+    mask-image: linear-gradient(#000 50%, transparent);
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+    gap: clamp(32px, 6vw, 88px);
+    align-items: center;
+    padding-block: clamp(40px, 5vw, 64px) clamp(48px, 6vw, 80px);
+  }
+  .crumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-muted);
+    margin-bottom: 26px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .crumbs a:hover {
+      color: var(--color-ink);
+    }
+  }
+  .crumbs b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+  .crumbs svg {
+    color: var(--color-faint);
+  }
+  .ident {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .ident-tile {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    box-shadow: 0 1px 2px rgb(35 37 74 / 0.06);
+  }
+  .ident-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ident-link:hover {
+      color: var(--color-ink);
+    }
+  }
+  .lede {
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.45;
+    color: var(--color-muted);
+    max-width: 30em;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-block: 20px 26px;
+  }
+  .tags span {
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding-inline: 10px;
+    border-radius: 7px;
+    background: var(--color-lilac);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .tags span.is-gold {
+    background: var(--color-gold);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-note {
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .hero-shot {
+    position: relative;
+    justify-self: end;
+    width: 100%;
+  }
+  .frame {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    box-shadow:
+      0 1px 2px rgb(35 37 74 / 0.05),
+      0 30px 60px -30px rgb(35 37 74 / 0.4);
+  }
+  .frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hero-shot .frame img {
+    aspect-ratio: 460 / 248;
+    object-fit: cover;
+    object-position: top;
+  }
+  .frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 34px;
+    padding-inline: 12px;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .frame-bar i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-lilac-2);
+  }
+  .frame-bar span {
+    margin-left: 8px;
+    height: 20px;
+    padding-inline: 10px;
+    border-radius: 6px;
+    background: var(--color-paper);
+    font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+    font-size: 11px;
+    line-height: 20px;
+    color: var(--color-muted);
+  }
+  .built {
+    position: absolute;
+    left: -24px;
+    bottom: -28px;
+    width: 180px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    box-shadow: 0 20px 40px -24px rgb(35 37 74 / 0.4);
+  }
+  .built-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-muted);
+    margin-bottom: 10px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 28px;
+    padding: 0 10px 0 6px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: var(--color-card);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .chip i {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-gold);
+  }
+
+  /* ------------------------------------------------------------ tabs */
+
+  .tabs-bar {
+    position: sticky;
+    top: 64px;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    padding-block: 14px;
+    pointer-events: none;
+  }
+  .tabs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 12px;
+    background: rgb(246 245 251 / 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-line);
+    pointer-events: auto;
+  }
+  .tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding-inline: 12px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tabs a:hover {
+      background: var(--color-card);
+    }
+  }
+  .tabs .count {
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+  }
+
+  /* --------------------------------------------------------- sections */
+
+  .section {
+    padding-block: clamp(28px, 4vw, 48px);
+  }
+  .section + .section {
+    border-top: 1px solid var(--color-line);
+  }
+  /* A full-width tinted band around a centred section. border-image paints
+     past the .wrap to both window edges; .np clips the overflow. */
+  .section.band {
+    border-top: 0;
+    padding-block: clamp(48px, 6vw, 80px);
+    border-image: conic-gradient(var(--color-paper) 0 0) fill 0 // 0 100vw;
+  }
+  .band + .section {
+    border-top: 0;
+  }
+  .band .fact {
+    background: var(--color-card);
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .section-head h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-head .count {
+    position: relative;
+    top: 2px;
+  }
+
+  /* ------------------------------------------------------------ cards */
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 8px 12px;
+    border-radius: 14px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    transition: box-shadow 0.2s ease;
+  }
+  /* The card stays put under the pointer; the sheet inside it lifts. */
+  @media (hover: hover) {
+    .card:hover {
+      box-shadow: 0 18px 36px -24px rgb(35 37 74 / 0.35);
+    }
+    /* The sheet runs 6px past the thumb's clipped bottom, so the lift
+       never opens a gap under it. */
+    .card .art-sheet {
+      margin-bottom: -6px;
+      transition:
+        transform 0.3s var(--ease-arrive),
+        box-shadow 0.3s ease;
+    }
+    .card:hover .art-sheet {
+      transform: translateY(-4px);
+      box-shadow: 0 -14px 28px -16px rgb(35 37 74 / 0.36);
+    }
+  }
+  .thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 9px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+  }
+  .thumb-top {
+    position: absolute;
+    inset: 10px 10px auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 6px;
+  }
+  .card-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    border: 1px solid var(--color-line);
+    background: var(--color-card);
+    color: var(--color-ink);
+  }
+  /* The card's place among the seven steps, where a pictogram used to be. */
+  .card-step {
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-2);
+    background: var(--color-lilac);
+    border-color: transparent;
+  }
+  .card-meta p {
+    font-size: 12px;
+    color: var(--color-muted);
+    margin-top: 1px;
+  }
+
+  /* Designed card art (components/art.tsx). Fills the thumb; the top 52px
+     stay clear for the Open button that sits over it. */
+  .art {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 52px 14px 0;
+    background: linear-gradient(180deg, var(--color-lilac) 0%, var(--color-paper) 100%);
+    color: var(--color-ink);
+    text-align: left;
+  }
+  .art-tabs {
+    display: flex;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+  .art-tabs span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .art-tabs .is-on {
+    background: var(--color-ink);
+    color: var(--color-card);
+  }
+  .art-tabs b {
+    display: inline-grid;
+    place-items: center;
+    min-width: 17px;
+    height: 17px;
+    padding-inline: 4px;
+    border-radius: 5px;
+    background: var(--color-lilac-2);
+    color: var(--color-ink);
+    font-size: 10.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .art-sheet {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid var(--color-line);
+    border-bottom: 0;
+    background: var(--color-card);
+    box-shadow: 0 -10px 24px -18px rgb(35 37 74 / 0.3);
+  }
+  /* Flush: the sheet is the whole thumb, not a page sitting inside it. */
+  .art-sheet-flush {
+    position: absolute;
+    inset: 0;
+    padding: 52px 16px 14px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .art-sheet-flush:has(.art-photo) {
+    padding: 0;
+    gap: 0;
+  }
+  .art-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-faint);
+  }
+  .art-eyebrow svg {
+    flex: none;
+    color: var(--color-ink-2);
+  }
+  .art-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .art-body {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--color-muted);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .art-body mark {
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: var(--color-gold);
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .art-body s {
+    color: var(--color-faint);
+    text-decoration-thickness: 1.5px;
+  }
+  .art-sources {
+    display: grid;
+    gap: 6px;
+    margin-top: 2px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--color-line);
+    font-size: 12px;
+    color: var(--color-muted);
+  }
+  .art-sources li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .art-sources i {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--color-gold);
+  }
+  .art-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+  }
+  .art-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .art-chip.is-ink {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-card);
+  }
+  .art-photo {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .thumb .art-photo img {
+    object-position: center 35%;
+  }
+  .art-photo-tag {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+  }
+  .art-alt {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 11px 14px 13px;
+    border-top: 1px solid var(--color-line);
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-line-clamp: unset;
+  }
+  .art-alt b {
+    color: var(--color-ink);
+    font-size: 11.5px;
+  }
+  .art-alt .count {
+    height: 18px;
+    font-size: 10.5px;
+  }
+  /* The description takes its own full-width row under label and count. */
+  .art-alt-text {
+    grid-column: 1 / -1;
+  }
+
+  /* --------------------------------------------------------- banner */
+
+  .banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .banner-badge {
+    flex: none;
+    display: grid;
+    place-items: center;
+    height: 22px;
+    padding-inline: 8px;
+    border-radius: 6px;
+    background: var(--color-ink);
+    color: var(--color-gold);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .banner div {
+    flex: 1;
+    min-width: 0;
+  }
+  .banner b {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .banner p {
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+
+  /* ------------------------------------------------------- disclosure */
+
+  .index {
+    margin-top: 18px;
+  }
+  .index summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 14px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-ink-2);
+    list-style: none;
+  }
+  .index summary::-webkit-details-marker {
+    display: none;
+  }
+  .index summary::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 7px;
+    border-color: transparent transparent transparent currentColor;
+    transition: transform 0.15s var(--ease-out);
+  }
+  .index[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .index ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 24px;
+    padding: 0 0 18px 15px;
+    list-style: decimal inside;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .index ol b {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  /* ------------------------------------------------- sources + band */
+
+  /* Sources card art: domain, title, and the line of the draft it backs. */
+  .art-sheet-source {
+    padding: 22px 18px 16px;
+    gap: 10px;
+  }
+  /* Source cards carry little text: the thumb sizes to it instead of
+     holding the 4:3 frame the screenshot cards need. */
+  .thumb:has(.art-source) {
+    aspect-ratio: auto;
+    flex: 1;
+  }
+  .art-source {
+    position: relative;
+    height: 100%;
+    padding: 0;
+  }
+  .art-source .art-sheet-source {
+    position: relative;
+    inset: auto;
+    flex: 1;
+  }
+  .art-source .art-chips {
+    padding-top: 6px;
+  }
+  .art-favicon {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: var(--color-ink);
+    color: var(--color-gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+  .art-quote {
+    padding: 2px 0 2px 10px;
+    border-left: 2px solid var(--color-gold);
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--color-muted);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .art-quote mark {
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: var(--color-gold);
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .research-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 40px;
+    margin-top: 16px;
+    padding: 28px 32px;
+    border-radius: 18px;
+    background: var(--color-ink);
+    color: var(--color-card);
+  }
+  .research-band-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 560px;
+  }
+  .research-band h3 {
+    font-size: 24px;
+    color: var(--color-card);
+  }
+  .research-band p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-lilac-2);
+  }
+  .research-band-also {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .research-band-also li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding-inline: 10px;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    background: rgb(255 255 255 / 0.06);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .research-band-also li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+  .research-band .hero-actions {
+    flex: none;
+  }
+  .research-band .btn:not(.btn-light) {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .research-band .btn-light {
+    background: transparent;
+    border-color: rgb(255 255 255 / 0.3);
+    color: var(--color-card);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .research-band .btn-light:hover {
+      background: rgb(255 255 255 / 0.08);
+    }
+  }
+  @media (max-width: 900px) {
+    .research-band {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 24px 20px;
+    }
+  }
+  /* ----------------------------------------------------------- facts */
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .fact {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .fact b {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .fact p {
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+
+  /* ----------------------------------------------------------- stack */
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .stack-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 18px 0 12px;
+    border-radius: 12px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  /* A letter monogram, the same treatment as the source favicons in the
+     cards, rather than a stand-in pictogram. */
+  .stack-item i {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: var(--color-ink);
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .stack-item-plain {
+    padding-left: 18px;
+  }
+
+  /* ---------------------------------------------------------- pricing */
+
+  .plans {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .plan {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+  }
+  .plan h3 {
+    font-size: 18px;
+  }
+  .plan-price {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .plan-price small {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-muted);
+    letter-spacing: 0;
+  }
+  .plan ul {
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .plan ul li {
+    display: flex;
+    gap: 8px;
+    align-items: start;
+  }
+  .plan ul svg {
+    flex: none;
+    margin-top: 4px;
+    color: var(--color-ink);
+  }
+  .plan .btn {
+    margin-top: auto;
+  }
+  .plan-ink {
+    background: var(--color-ink);
+    color: #fff;
+    border-color: var(--color-ink);
+  }
+  .plan-ink h3 {
+    color: #fff;
+  }
+  .plan-ink .plan-price {
+    color: var(--color-gold);
+  }
+  .plan-ink .plan-price small,
+  .plan-ink ul {
+    color: #c9c9e6;
+  }
+  .plan-ink ul svg {
+    color: var(--color-gold);
+  }
+  .plan-soft {
+    background: var(--color-paper);
+    justify-content: center;
+  }
+  .plan-soft p {
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .plan-soft a {
+    font-weight: 700;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  /* -------------------------------------------------------------- faq */
+
+  .faq {
+    max-width: 720px;
+  }
+  .faq details {
+    border-top: 1px solid var(--color-line);
+  }
+  .faq details:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-block: 16px;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: "+";
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--color-faint);
+  }
+  .faq details[open] summary::after {
+    content: "\2212";
+  }
+  /* Answers open to their natural height instead of snapping. */
+  .faq details::details-content,
+  .index::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size 0.32s var(--ease-arrive),
+      opacity 0.24s ease,
+      content-visibility 0.32s allow-discrete;
+  }
+  .faq details[open]::details-content,
+  .index[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+  .faq details p {
+    padding-bottom: 18px;
+    color: var(--color-muted);
+    max-width: 44em;
+  }
+
+  /* --------------------------------------------------------- closing */
+
+  .closing {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-block: clamp(64px, 9vw, 112px);
+    color: var(--color-card);
+    border-image: conic-gradient(var(--color-ink) 0 0) fill 0 // 0 100vw;
+  }
+  .closing h2 {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 800;
+  }
+  .closing p {
+    color: var(--color-lilac-2);
+    font-size: 17px;
+    max-width: 30em;
+  }
+  .closing .btn {
+    margin-top: 10px;
+  }
+
+  /* ---------------------------------------------------------- footer */
+
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-line);
+    font-size: 13px;
+  }
+  .footer-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.6fr repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    padding-block: 48px 40px;
+  }
+  .footer-brand p {
+    margin-top: 14px;
+    color: var(--color-muted);
+    max-width: 24em;
+    line-height: 1.6;
+  }
+  /* Links in the blurb only; the logo above it stays plain. */
+  .footer-brand p a {
+    color: var(--color-ink-2);
+    text-decoration: underline;
+    text-decoration-color: var(--color-lilac-2);
+    text-underline-offset: 3px;
+  }
+  .footer-col h3 {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 14px;
+  }
+  .footer-col ul {
+    display: grid;
+    gap: 10px;
+  }
+  .footer-col a {
+    color: var(--color-ink-2);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .footer-col a:hover {
+      color: var(--color-ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+  .footer-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-block: 18px;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+  }
+  .footer-row span {
+    display: flex;
+    gap: 14px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .footer-row a:hover {
+      color: var(--color-ink);
+    }
+  }
+  /* ---------------------------------------------------------- motion */
+
+  /*
+   * One idea carries the page: a claim being checked. The fact-check card
+   * strikes the wrong figure and highlights the right one; the source cards
+   * highlight the line they back; the hero card walks through a run.
+   *
+   * Every waiting state below is gated on html.can-play (set by
+   * components/play-on-view.tsx) and on motion being allowed, so without
+   * JavaScript, or with reduced motion, the finished state shows at once.
+   */
+
+  /* Draft card on the hero capture (components/run-card.tsx). The form
+     behind it is the input; this is the output: the same title in
+     WordPress, one claim highlighted and footnoted. No backdrop panel:
+     the two overlapping documents are the depth. */
+  .hero-shot {
+    isolation: isolate;
+    padding-bottom: 150px;
+  }
+  .hero-shot .frame {
+    border-color: var(--color-lilac-2);
+    box-shadow:
+      0 1px 2px rgb(35 37 74 / 0.06),
+      0 30px 60px -34px rgb(35 37 74 / 0.45);
+  }
+  .run {
+    left: -64px;
+    bottom: 0;
+    width: 312px;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    border-color: var(--color-lilac-2);
+    box-shadow:
+      0 1px 2px rgb(35 37 74 / 0.08),
+      0 22px 44px -20px rgb(35 37 74 / 0.5);
+  }
+  .run-bar {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 2px;
+  }
+  .run-bar i {
+    position: relative;
+    height: 3px;
+    overflow: hidden;
+    background: var(--color-lilac);
+  }
+  .run-bar i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+  .run-bar i.is-full::after,
+  .run[data-done] .run-bar i::after {
+    transform: scaleX(1);
+  }
+  .run-bar i.is-now::after {
+    background: var(--color-gold);
+  }
+  .run-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding-inline: 14px;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+  .run-wp {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: var(--color-ink);
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .run-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .run[data-done] .run-label {
+    color: var(--color-ink);
+  }
+  .run-label svg {
+    color: var(--color-gold);
+  }
+  .run-count {
+    margin-left: auto;
+    font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+    font-size: 11px;
+    color: var(--color-faint);
+  }
+  .run-doc {
+    padding: 14px 16px 14px;
+  }
+  .run-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  .run-body {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+  .run-body mark {
+    padding: 0 2px;
+    color: var(--color-ink);
+    background: linear-gradient(rgb(229 169 58 / 0.55), rgb(229 169 58 / 0.55)) no-repeat 0 0 / 100% 100%;
+    border-radius: 2px;
+    box-decoration-break: clone;
+    transition: background-size 0.6s var(--ease-arrive) 0.2s;
+  }
+  .run-nowrap {
+    white-space: nowrap;
+  }
+  .run-body sup,
+  .run-cite b {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  /* top: 0 cancels preflight's sup lift, which stacked on the
+     vertical-align and floated the marker between the lines. */
+  .run-body sup {
+    top: 0;
+    margin-left: 2px;
+    vertical-align: 0.45em;
+    line-height: 0;
+  }
+  .run-cite {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px dashed var(--color-line);
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--color-faint);
+  }
+  .run-cite span {
+    flex: none;
+    font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+    color: var(--color-ink-2);
+  }
+  /* Keep the source on one line; truncate rather than wrap when narrow. */
+  .run-cite em {
+    min-width: 0;
+    font-style: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The fact-check: the wrong figure gets a drawn strike, the right one
+     a highlighter pass, then the chips that report it. */
+  .art-draft .art-body s {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 100% 1.5px;
+    box-decoration-break: clone;
+    transition:
+      background-size 0.45s var(--ease-arrive) 0.35s,
+      color 0.3s ease 0.55s;
+  }
+  [data-play] mark {
+    background: linear-gradient(var(--color-gold), var(--color-gold)) no-repeat 0 0 / 100% 100%;
+    box-decoration-break: clone;
+    transition: background-size 0.6s var(--ease-arrive) var(--mark-delay, 0.25s);
+  }
+  .art-draft {
+    --mark-delay: 0.9s;
+  }
+  [data-play] .art-chip {
+    transition:
+      opacity 0.3s ease var(--chip-delay, 0.6s),
+      transform 0.45s var(--ease-arrive) var(--chip-delay, 0.6s);
+  }
+  [data-play] .art-chip + .art-chip {
+    --chip-delay: 0.7s;
+  }
+  .art-draft[data-play] .art-chip {
+    --chip-delay: 1.45s;
+  }
+  .art-draft[data-play] .art-chip.art-fixed {
+    --chip-delay: 1.3s;
+  }
+  .art-report .art-sources li {
+    transition:
+      opacity 0.35s ease var(--li-delay, 0.15s),
+      transform 0.5s var(--ease-arrive) var(--li-delay, 0.15s);
+  }
+  .art-report .art-sources li + li {
+    --li-delay: 0.3s;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Waiting states, until the card is mostly on screen. */
+    .can-play .art-draft[data-play=""] .art-body s {
+      background-size: 0% 1.5px;
+      color: var(--color-ink);
+    }
+    .can-play [data-play=""] mark {
+      background-size: 0% 100%;
+    }
+    .can-play [data-play=""] .art-chip {
+      opacity: 0;
+      transform: translateY(5px) scale(0.94);
+    }
+    .can-play .art-report[data-play=""] .art-sources li {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+
+    /* Hero entrance: the copy settles line by line, the app window rises
+       and paints top to bottom, the run card lands last. Once, on load. */
+    .hero > div:first-child > * {
+      animation: np-rise 0.7s var(--ease-arrive) both;
+    }
+    .hero > div:first-child > :nth-child(2) {
+      animation-delay: 0.06s;
+    }
+    .hero > div:first-child > :nth-child(3) {
+      animation-delay: 0.12s;
+    }
+    .hero > div:first-child > :nth-child(4) {
+      animation-delay: 0.18s;
+    }
+    .hero > div:first-child > :nth-child(5) {
+      animation-delay: 0.24s;
+    }
+    .hero > div:first-child > :nth-child(6) {
+      animation-delay: 0.3s;
+    }
+    .hero-shot .frame {
+      animation: np-rise 0.8s var(--ease-arrive) 0.2s both;
+    }
+    .hero-shot .frame img {
+      animation: np-paint 1s var(--ease-arrive) 0.45s both;
+    }
+    .hero-shot .run {
+      animation: np-land 0.6s var(--ease-arrive) 0.95s both;
+    }
+
+    .run:not([data-done]) .run-body mark {
+      background-size: 0% 100%;
+      transition: none;
+    }
+    .run-swap {
+      animation: np-swap 0.34s var(--ease-arrive) both;
+    }
+    .run-bar i.is-now::after {
+      animation: np-fill var(--ms, 1.4s) linear both;
+    }
+  }
+
+  @keyframes np-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+      filter: blur(4px);
+    }
+  }
+  @keyframes np-paint {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes np-land {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+  }
+  @keyframes np-swap {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+      filter: blur(3px);
+    }
+  }
+  @keyframes np-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .np *,
+    .np *::before,
+    .np *::after {
+      transition: none !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* ------------------------------------------------------- responsive */
+
+  @media (max-width: 900px) {
+    .pills {
+      display: none;
+    }
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .hero-shot {
+      justify-self: stretch;
+      margin-bottom: 28px;
+    }
+    .built {
+      left: 12px;
+    }
+    .run {
+      left: 12px;
+      width: min(312px, calc(100% - 24px));
+    }
+    /* The pill nav and Log in move into the menu. */
+    .site-header .menu-btn {
+      display: inline-flex;
+    }
+    .header-login {
+      display: none;
+    }
+
+    /* Card rows become a swipeable row that runs to both screen edges,
+       with the next card peeking in so the row reads as scrollable. A
+       2-up grid left the third card alone on its own line. */
+    .cards {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      --edge-l: max(var(--gutter), env(safe-area-inset-left, 0px));
+      --edge-r: max(var(--gutter), env(safe-area-inset-right, 0px));
+      margin-left: calc(-1 * var(--edge-l));
+      margin-right: calc(-1 * var(--edge-r));
+      padding: 2px var(--edge-r) 6px var(--edge-l);
+      scroll-padding-inline: var(--edge-l) var(--edge-r);
+    }
+    .cards::-webkit-scrollbar {
+      display: none;
+    }
+    .cards > .card {
+      flex: 0 0 min(44%, 340px);
+      scroll-snap-align: start;
+    }
+
+    .plans {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .plan-soft {
+      grid-column: 1 / -1;
+    }
+    .fact {
+      padding: 16px;
+    }
+    .fact b {
+      font-size: 26px;
+    }
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .footer-brand {
+      grid-column: span 2;
+    }
+    .footer-row {
+      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+  @media (max-width: 640px) {
+    .np h1 {
+      font-size: 32px;
+    }
+    .ident-tile {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+    }
+    .cards > .card {
+      flex-basis: 84%;
+    }
+    .section-head {
+      flex-wrap: wrap;
+    }
+    .banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .banner .btn {
+      width: 100%;
+    }
+    .hero-actions .btn {
+      flex: 1;
+    }
+    /* A desktop capture at phone width is unreadable, and the draft card
+       covered most of it. The capture zooms to its top-left corner (the
+       article type and title), and the card joins the flow so it only
+       overlaps the frame's bottom edge, whatever the text size. */
+    .hero-shot {
+      padding-bottom: 0;
+    }
+    .hero-shot .frame img {
+      transform: scale(1.5);
+      transform-origin: left top;
+    }
+    .hero-shot .run {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: auto;
+      /* Just enough overlap to read as a stack; more cuts through the
+         title field. */
+      margin: -18px 12px 0;
+    }
+    /* Three short facts as one compact list instead of three tall tiles. */
+    .facts {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      border-radius: 14px;
+      border: 1px solid var(--color-line);
+      background: var(--color-card);
+      overflow: hidden;
+    }
+    .fact,
+    .band .fact {
+      display: grid;
+      /* Wide enough for "Every number" at 20px. */
+      grid-template-columns: 142px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 0;
+      border-radius: 0;
+    }
+    .fact + .fact {
+      border-top: 1px solid var(--color-line);
+    }
+    .fact b {
+      margin: 0;
+      font-size: 20px;
+    }
+    .plans {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .plan {
+      padding: 20px;
+    }
+    .research-band h3 {
+      font-size: 22px;
+    }
+    .footer-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .tabs a {
+      padding-inline: 10px;
+    }
+  }
+  /* Logo, Book a demo and the menu button stop fitting on one row. The
+     hero and the menu both carry Book a demo. */
+  @media (max-width: 440px) {
+    .header-demo {
+      display: none;
+    }
+  }
+}
