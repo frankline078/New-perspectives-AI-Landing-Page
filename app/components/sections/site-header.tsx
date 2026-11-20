@@ -23,7 +23,7 @@ export function SiteHeader() {
           <a className="btn header-demo" href={DEMO_HREF}>
             Book a demo
           </a>
-          <MobileMenu demoHref={DEMO_HREF} appHref={APP_HREF} />
+          <MobileMenu />
         </div>
       </div>
     </header>

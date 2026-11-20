@@ -12,9 +12,9 @@ export function Hero() {
         <div>
           <nav className="crumbs" aria-label="Breadcrumb">
             <a href="#top">Home</a>
-            <ChevronIcon size={12} style={{ transform: "rotate(-90deg)" }} />
+            <ChevronIcon size={12} className="crumb-sep" />
             <a href="#what">Content tools</a>
-            <ChevronIcon size={12} style={{ transform: "rotate(-90deg)" }} />
+            <ChevronIcon size={12} className="crumb-sep" />
             <b>New Perspectives AI</b>
           </nav>
 

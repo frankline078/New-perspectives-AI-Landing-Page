@@ -30,11 +30,19 @@
 }
 
 @layer base {
+  /* Layout numbers shared with the scripts. components/nav-pills.tsx reads
+     --scroll-offset to tell which section has been reached. */
+  :root {
+    /* Height of the sticky header; the tabs bar sticks right under it. */
+    --header-h: 64px;
+    /* Where an in-page link lands a section: the header plus the tabs bar. */
+    --scroll-offset: 140px;
+  }
   html {
     /* Lets <details> animate to its natural height (see .faq). */
     interpolate-size: allow-keywords;
     scroll-behavior: smooth;
-    scroll-padding-top: 140px;
+    scroll-padding-top: var(--scroll-offset);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
@@ -241,7 +249,7 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    height: 64px;
+    height: var(--header-h);
   }
   .logo {
     display: inline-flex;
@@ -450,7 +458,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    height: 64px;
+    height: var(--header-h);
     padding-left: 18px;
   }
   .menu .logo {
@@ -688,6 +696,10 @@
   .crumbs svg {
     color: var(--color-faint);
   }
+  /* The chevron icon points down; between crumbs it points right. */
+  .crumbs .crumb-sep {
+    transform: rotate(-90deg);
+  }
   .ident {
     display: flex;
     align-items: center;
@@ -853,7 +865,7 @@
 
   .tabs-bar {
     position: sticky;
-    top: 64px;
+    top: var(--header-h);
     z-index: 15;
     display: flex;
     justify-content: center;
