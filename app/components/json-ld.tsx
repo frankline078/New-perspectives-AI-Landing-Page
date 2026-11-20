@@ -20,12 +20,20 @@ const JSON_LD = {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       publisher: { "@id": `${SITE_URL}/#org` },
+      // Each plan is billed monthly: the price is per one month (UN/CEFACT "MON").
       offers: PLANS.map((p) => ({
         "@type": "Offer",
         name: p.name,
         price: String(p.price),
         priceCurrency: "USD",
         description: planSummary(p),
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: String(p.price),
+          priceCurrency: "USD",
+          unitCode: "MON",
+          referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+        },
       })),
     },
   ],

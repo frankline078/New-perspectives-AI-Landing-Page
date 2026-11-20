@@ -35,7 +35,7 @@ export function Hero() {
             Give it a title. It reads the guidelines and studies on your topic first, writes from what it found, checks each claim against its source, and leaves a draft in WordPress for you to approve.
           </p>
 
-          <div className="tags" aria-label="At a glance">
+          <div className="tags" role="group" aria-label="At a glance">
             {HERO_TAGS.map((t, i) => (
               <span key={t} className={i === 0 ? "is-gold" : undefined}>
                 {t}

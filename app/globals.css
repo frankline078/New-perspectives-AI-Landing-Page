@@ -974,6 +974,9 @@
   }
   /* The card's place among the seven steps, where a pictogram used to be. */
   .card-step {
+    /* Holds its .sr-only label. Without it the label's containing block sits
+       outside the mobile card scroller and widens the page. */
+    position: relative;
     font-size: 11px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;

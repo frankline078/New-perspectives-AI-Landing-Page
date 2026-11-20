@@ -8,6 +8,9 @@ export const SITE_TITLE = "New Perspectives AI: articles that did the reading fi
 export const SITE_DESCRIPTION =
   "New Perspectives AI researches your topic, writes the article, checks every claim, and hands you a draft ready for WordPress. Built for treatment and mental health websites.";
 
+/** When the page's content last changed, for the sitemap. Update it with the copy. */
+export const LAST_MODIFIED = "2026-11-20";
+
 /** Where every "Book a demo" goes. */
 export const DEMO_HREF = "mailto:[YOUR EMAIL]";
 

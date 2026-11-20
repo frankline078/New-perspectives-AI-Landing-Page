@@ -36,8 +36,9 @@ export function WhatItDoes() {
               </div>
             </div>
             <div className="card-meta">
-              <span className="card-icon card-step" aria-label={`Step ${s.step} of ${STEPS.length}`}>
-                {String(s.step).padStart(2, "0")}
+              <span className="card-icon card-step">
+                <span aria-hidden="true">{String(s.step).padStart(2, "0")}</span>
+                <span className="sr-only">{`Step ${s.step} of ${STEPS.length}`}</span>
               </span>
               <div>
                 <h3>{s.title}</h3>
