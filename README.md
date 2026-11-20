@@ -1,6 +1,6 @@
 # New Perspectives AI Landing Page
 
-Built with Next.js, React, and Tailwind CSS.
+The one-page marketing site for New Perspectives AI. Built with Next.js 16, React 19 and Tailwind CSS 4.
 
 ## Development
 
@@ -13,32 +13,43 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Where things are
 
-The page is the landing page only. Every article, source, number and name on it is made-up sample data; do not add real client articles.
+- `app/content.ts`: all page copy and data. The steps, the run card's step labels, the sources, the plans, the FAQ, the nav and the footer are all here. Facts that appear in more than one place (the step count, minutes per draft, plan prices and limits) are written once, and every sentence that mentions them is built from them. Change copy here, not in the components.
+- `app/site.ts`: site-wide facts: the URL, name, title and description used by the metadata and structured data, `LAST_MODIFIED` for the sitemap, `APP_HREF` (Log in) and `DEMO_HREF` (every "Book a demo").
+- `app/page.tsx`: puts the sections in order.
+- `app/components/sections/`: one component per section: `site-header`, `hero`, `section-tabs`, `what-it-does`, `sources`, `works-with`, `pricing`, `faq`, `closing`, `site-footer`.
+- `app/components/`: the pieces the sections share:
+  - `run-card.tsx`: the hero's draft card, which steps through a run while it is on screen
+  - `nav-pills.tsx`: the desktop nav with the sliding white pill
+  - `mobile-menu.tsx`: the drawer below 900px
+  - `art.tsx`: the drawn stand-ins on the "What it does" and "Sources" cards
+  - `play-on-view.tsx`: starts each card's CSS sequence the first time it is on screen
+  - `shot.tsx`: the browser-window frame and `next/image` wrapper for app captures
+  - `json-ld.tsx`: structured data (organisation and plans, built from `PLANS`)
+  - `icons.tsx`: the logo and line icons
+- `app/screens.ts`: the real app captures, by the slot they fill.
+- `app/globals.css`: all styles. Tailwind's base reset is on; colours, fonts and easings are `@theme` tokens at the top, and layout numbers shared with scripts (`--header-h`, `--scroll-offset`) are on `:root`.
+- `app/layout.tsx`: fonts and metadata. Bricolage Grotesque carries the headings and large numbers, Instrument Sans everything else (both via `next/font/google`).
+- `public/screens/`: the images the page shows.
+- `docs/design/`: the design files the page was built from.
 
-- `app/page.tsx` — the page, section by section (hero, how it works, human in the loop, trust, closing)
-- `app/globals.css` — all styles (Tailwind's base reset is on; colours and fonts are theme tokens at the top)
-- `app/layout.tsx` — fonts (Newsreader for headings, Inter for body) and metadata
-- `app/components/pipeline.tsx` — the scroll-driven pipeline strip, the page's main animation
-- `app/components/inview.tsx` — adds `is-in` when an element scrolls into view (starts the GEO dial)
-- `app/components/shot.tsx` — the window frame and `next/image` wrapper for app captures
-- `app/screens.ts` — real app captures, by the slot they fill
-- `public/screens/` — the capture files
+Tailwind runs through PostCSS (`postcss.config.mjs`).
 
-"Start an article" links to `START_HREF` at the top of `app/page.tsx`. Point it at the app's new-article screen.
+Placeholders: `DEMO_HREF` in `app/site.ts` is still `mailto:[YOUR EMAIL]`. Set it before launch.
 
-### App captures
+## App captures
 
-One slot shows a real screen of the app: the hero window (the start screen with the article-type choice and title field). The other files in `public/screens/` are no longer used.
+The hero window shows a real screen of the app (`public/screens/app-new-article.png`). The "What it does" and "Sources" cards are drawn in `app/components/art.tsx` instead, because a full capture shrunk to card size can't be read.
 
-To replace or add one:
+To replace or add a capture:
 
-1. Open the screen in the app at a narrow window width (440 to 540px), so its text stays readable when the capture is shown small. Capture at 3x device pixel ratio.
-2. Crop to the part that matters. Leave out the sidebar (it shows the signed-in email), client or test labels, cost figures and any real article. Crop only; do not edit the capture.
-3. Save it under `public/screens/` with a new file name, and list it in `app/screens.ts` with its pixel size and alt text. A new name matters: the image optimizer caches by address, so an overwritten file can keep showing the old picture for hours (or delete `.next/cache/images`).
+1. Capture the screen with `scripts/capture-app.mjs` (see the comment at the top for sign-in and options). Full screens go to `captures/` at the repo root. That folder is gitignored and kept out of `public/` because the full screens can show client data.
+2. Crop to the part the slot needs. Leave out the sidebar (it shows the signed-in email), client or test labels, cost figures and any real article.
+3. Save the crop under `public/screens/` with a new file name, and list it in `app/screens.ts` with its pixel size and alt text. Use a new name: the image optimizer caches by address, so an overwritten file can keep showing the old picture for hours (or delete `.next/cache/images`).
 
 ## Scripts
 
-- `npm run dev` — start the dev server
-- `npm run build` — production build
-- `npm run start` — serve the production build
-- `npm run lint` — run ESLint
+- `npm run dev`: start the dev server
+- `npm run build`: production build
+- `npm run start`: serve the production build
+- `npm run lint`: run ESLint
+- `npm run typecheck`: run the TypeScript compiler without emitting

@@ -1,47 +1,6 @@
 import { LogoMark } from "../icons";
+import { FOOTER } from "../../content";
 import { DEMO_HREF } from "../../site";
-
-const FOOTER: { head: string; links: [string, string][] }[] = [
-  {
-    head: "What it does",
-    links: [
-      ["Research", "#research"],
-      ["Writing", "#what"],
-      ["Fact-check", "#what"],
-      ["Images", "#what"],
-      ["SEO and GEO score", "#what"],
-      ["WordPress draft", "#what"],
-    ],
-  },
-  {
-    head: "Reads from",
-    links: [
-      ["PubMed Central", "#sources"],
-      ["ASAM guidelines", "#sources"],
-      ["SAMHSA", "#sources"],
-      ["Government health agencies", "#sources"],
-      ["Peer-reviewed journals", "#sources"],
-    ],
-  },
-  {
-    head: "Plans",
-    links: [
-      ["Starter", "#pricing"],
-      ["Team", "#pricing"],
-      ["Need more?", "#pricing"],
-      ["Book a demo", DEMO_HREF],
-    ],
-  },
-  {
-    head: "New Perspectives AI",
-    links: [
-      ["Pricing", "#pricing"],
-      ["Questions", "#faq"],
-      ["Built for treatment sites", "#top"],
-      ["Contact", DEMO_HREF],
-    ],
-  },
-];
 
 export function SiteFooter() {
   return (

@@ -2,7 +2,8 @@
 
 import { useRef, type CSSProperties } from "react";
 import { ArrowIcon, LogoMark } from "./icons";
-import { NAV_LINKS as LINKS } from "./nav-links";
+import { NAV_LINKS as LINKS } from "../content";
+import { APP_HREF, DEMO_HREF } from "../site";
 
 /**
  * The menu below 900px, where the pill nav is hidden: a drawer that slides
@@ -13,7 +14,7 @@ import { NAV_LINKS as LINKS } from "./nav-links";
  * The page behind stops scrolling while it is open (html:has(.menu[open])
  * in globals.css).
  */
-export function MobileMenu({ demoHref, appHref }: { demoHref: string; appHref: string }) {
+export function MobileMenu() {
   const dialog = useRef<HTMLDialogElement>(null);
   const close = () => dialog.current?.close();
 
@@ -72,10 +73,10 @@ export function MobileMenu({ demoHref, appHref }: { demoHref: string; appHref: s
           </nav>
 
           <div className="wrap menu-actions">
-            <a className="btn btn-lg btn-light" href={appHref}>
+            <a className="btn btn-lg btn-light" href={APP_HREF}>
               Log in
             </a>
-            <a className="btn btn-lg" href={demoHref} onClick={close}>
+            <a className="btn btn-lg" href={DEMO_HREF} onClick={close}>
               Book a demo
             </a>
           </div>

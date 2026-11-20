@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -15,7 +16,7 @@
   },
   "devDependencies": {
     "@playwright/mcp": "0.0.86",
-    "@tailwindcss/turbopack": "4.3.3",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

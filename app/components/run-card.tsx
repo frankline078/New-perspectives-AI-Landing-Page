@@ -2,26 +2,18 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CheckIcon } from "./icons";
+import { RUN } from "../content";
 
 /**
  * The draft card on the hero capture: what comes out the other end of the
  * form behind it. The same title, in WordPress, with one claim highlighted
  * and footnoted to the guideline it came from.
  *
- * Its header walks through the seven steps a run takes (page.tsx's STEPS,
- * said as they happen). When the run lands, the highlighter passes over the
+ * Its header walks through the steps a run takes (RUN in content.ts: the
+ * same steps as STEPS, said as they happen). When the run lands, the highlighter passes over the
  * cited claim. It only runs while on screen and the tab is visible; with
  * reduced motion or no JavaScript it shows the finished draft.
  */
-const RUN: { label: string; ms: number }[] = [
-  { label: "Reading the research", ms: 1700 },
-  { label: "Writing the draft", ms: 1400 },
-  { label: "Checking every claim", ms: 1700 },
-  { label: "Making three images", ms: 1200 },
-  { label: "Title, slug and GEO score", ms: 1200 },
-  { label: "Waiting for your OK", ms: 2200 },
-  { label: "Sending to WordPress", ms: 1100 },
-];
 const DONE = RUN.length;
 const DONE_MS = 4200;
 
@@ -107,7 +99,7 @@ export function RunCard() {
               {RUN[step].label}
             </span>
           )}
-          <span className="run-count">{done ? "7/7" : `${step + 1}/7`}</span>
+          <span className="run-count">{`${done ? RUN.length : step + 1}/${RUN.length}`}</span>
         </div>
 
         <div className="run-doc">

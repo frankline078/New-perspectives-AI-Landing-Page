@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { NAV_LINKS as LINKS } from "./nav-links";
+import { NAV_LINKS as LINKS } from "../content";
 
 /**
- * Vertical offset that counts a section as "reached". The page scrolls a
- * target to 140px (header plus tabs bar); a little slack covers subpixels.
+ * Vertical offset that counts a section as "reached": where the page scrolls
+ * a target to (--scroll-offset in globals.css, the header plus the tabs bar),
+ * plus a little slack for subpixels.
  */
-const OFFSET = 150;
+const SLACK = 10;
+const readOffset = () => parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + SLACK;
 
 /**
  * The main nav. The pill for the section on screen is white; a click moves
@@ -53,12 +55,13 @@ export function NavPills() {
     const targets = LINKS.map((l) => ({ href: l.href, el: document.querySelector<HTMLElement>(l.href) }))
       .filter((t): t is { href: string; el: HTMLElement } => t.el !== null)
       .sort((a, b) => (a.el.compareDocumentPosition(b.el) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    let offset = readOffset();
     let raf = 0;
     const update = () => {
       raf = 0;
       let current: string | null = null;
       for (const t of targets) {
-        if (t.el.getBoundingClientRect().top - OFFSET <= 0) current = t.href;
+        if (t.el.getBoundingClientRect().top - offset <= 0) current = t.href;
       }
       const pin = pinned.current;
       if (pin && (pin.href === current || performance.now() > pin.until)) pinned.current = null;
@@ -67,12 +70,16 @@ export function NavPills() {
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
+    const onResize = () => {
+      offset = readOffset();
+      onScroll();
+    };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);

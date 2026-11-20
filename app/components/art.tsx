@@ -76,7 +76,7 @@ export function ImagesArt() {
             height={640}
             alt=""
             sizes="(max-width: 640px) 92vw, (max-width: 900px) 46vw, 330px"
-            quality={80}
+            quality={75}
           />
           <span className="art-chip is-ink art-photo-tag">
             <PictureIcon size={11} />

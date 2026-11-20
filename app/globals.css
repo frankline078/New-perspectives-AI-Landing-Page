@@ -30,11 +30,19 @@
 }
 
 @layer base {
+  /* Layout numbers shared with the scripts. components/nav-pills.tsx reads
+     --scroll-offset to tell which section has been reached. */
+  :root {
+    /* Height of the sticky header; the tabs bar sticks right under it. */
+    --header-h: 64px;
+    /* Where an in-page link lands a section: the header plus the tabs bar. */
+    --scroll-offset: 140px;
+  }
   html {
     /* Lets <details> animate to its natural height (see .faq). */
     interpolate-size: allow-keywords;
     scroll-behavior: smooth;
-    scroll-padding-top: 140px;
+    scroll-padding-top: var(--scroll-offset);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
@@ -136,9 +144,6 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
-  .muted {
-    color: var(--color-muted);
-  }
 
   /* ------------------------------------------------------- buttons */
 
@@ -221,9 +226,6 @@
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
-  .count-gold {
-    background: var(--color-gold);
-  }
 
   /* ---------------------------------------------------------- header */
 
@@ -241,7 +243,7 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    height: 64px;
+    height: var(--header-h);
   }
   .logo {
     display: inline-flex;
@@ -316,17 +318,15 @@
 
   /* ------------------------------------------------------ mobile menu */
 
-  /* A soft pill: the word "Menu" beside two lines of unequal length
-     (the label is hidden from screen readers; aria-label says it).
-     The short line reaches full length on hover. The open state (lines
-     crossed into an X, no label) only lives on the close button inside
-     the dialog, which sits where this one does. */
+  /* A round 40px button holding two lines of unequal length; aria-label
+     names it. The short line reaches full length on hover. The open state
+     (lines crossed into an X) only lives on the close button inside the
+     dialog, which sits where this one does. */
   .menu-btn {
     display: none;
     flex: none;
     align-items: center;
     justify-content: center;
-    /* Icon only: a round 40px button, the same as the close button. */
     width: 40px;
     height: 40px;
     padding: 0;
@@ -335,10 +335,6 @@
     background: var(--color-paper);
     box-shadow: inset 0 0 0 1px var(--color-line);
     color: var(--color-ink);
-    font-family: var(--font-sans);
-    font-size: 13.5px;
-    font-weight: 700;
-    letter-spacing: -0.005em;
     cursor: pointer;
     transition:
       background-color 0.15s ease,
@@ -450,7 +446,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    height: 64px;
+    height: var(--header-h);
     padding-left: 18px;
   }
   .menu .logo {
@@ -688,6 +684,10 @@
   .crumbs svg {
     color: var(--color-faint);
   }
+  /* The chevron icon points down; between crumbs it points right. */
+  .crumbs .crumb-sep {
+    transform: rotate(-90deg);
+  }
   .ident {
     display: flex;
     align-items: center;
@@ -817,43 +817,12 @@
     border: 1px solid var(--color-line);
     box-shadow: 0 20px 40px -24px rgb(35 37 74 / 0.4);
   }
-  .built-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-muted);
-    margin-bottom: 10px;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    height: 28px;
-    padding: 0 10px 0 6px;
-    border-radius: 999px;
-    border: 1px solid var(--color-line);
-    background: var(--color-card);
-    font-size: 13px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .chip i {
-    display: grid;
-    place-items: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-ink);
-    color: var(--color-gold);
-  }
 
   /* ------------------------------------------------------------ tabs */
 
   .tabs-bar {
     position: sticky;
-    top: 64px;
+    top: var(--header-h);
     z-index: 15;
     display: flex;
     justify-content: center;
@@ -1005,6 +974,9 @@
   }
   /* The card's place among the seven steps, where a pictogram used to be. */
   .card-step {
+    /* Holds its .sr-only label. Without it the label's containing block sits
+       outside the mobile card scroller and widens the page. */
+    position: relative;
     font-size: 11px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;

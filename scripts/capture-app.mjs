@@ -15,7 +15,8 @@
  * reused on later runs, so credentials are needed once per 12 hours.
  *
  * Options:
- *   --out <dir>        where PNGs go (default public/screens/raw)
+ *   --out <dir>        where PNGs go (default captures/, gitignored and outside
+ *                      public/ because the full screens show client data)
  *   --routes a,b,c     routes to capture instead of the default list
  *   --scale 2|3        device pixel ratio (default 2 -> 2880x1800 files)
  *   --width <px>       viewport width (default 1440; height stays 900)
@@ -51,7 +52,7 @@ const opt = (name, fallback) => {
   return i >= 0 && args[i + 1] ? args[i + 1] : fallback;
 };
 const BASE = opt("--base", "http://localhost:5173").replace(/\/$/, "");
-const OUT = path.resolve(ROOT, opt("--out", "public/screens/raw"));
+const OUT = path.resolve(ROOT, opt("--out", "captures"));
 const SCALE = Number(opt("--scale", "2"));
 const WIDTH = Number(opt("--width", "1440"));
 const HEADED_LOGIN = args.includes("--login");
