@@ -1068,7 +1068,8 @@
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.02em;
-    color: var(--color-faint);
+    /* --color-faint's hue, darkened to 4.6:1 on white: 11px text needs 4.5:1. */
+    color: #6e71a3;
   }
   .art-eyebrow svg {
     flex: none;
@@ -1630,6 +1631,10 @@
     gap: 14px;
     padding-block: clamp(64px, 9vw, 112px);
     color: var(--color-card);
+    /* The border-image paints the band full-bleed; the background colour
+       under it changes nothing on screen but lets contrast checkers see the
+       ink behind the text (they can't read border-image). */
+    background-color: var(--color-ink);
     border-image: conic-gradient(var(--color-ink) 0 0) fill 0 // 0 100vw;
   }
   .closing h2 {
