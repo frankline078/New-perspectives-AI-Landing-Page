@@ -46,8 +46,9 @@ next-env.d.ts
 # playwright mcp session output
 .playwright-mcp/
 
-# full app captures: real client data, not used by the page
-/public/screens/app/
+# full app captures: real client data, not used by the page. Kept outside
+# public/ so they can never be deployed.
+/captures/
 
 # local Claude Code skills (vendored, ~40 MB)
 /.claude/

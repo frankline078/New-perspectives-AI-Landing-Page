@@ -4,7 +4,7 @@ import type { Screen } from "./components/shot";
  * Real captures of the app, by the slot they fill on the page.
  *
  * Taken from the desktop app at 2x with scripts/capture-app.mjs, then cropped
- * to the slot (public/screens/app/ holds the full screens). Test-only labels,
+ * to the slot (captures/ at the repo root, gitignored, holds the full screens). Test-only labels,
  * staff emails and cost figures are replaced in the DOM before capture; the
  * layout, data and copy are the app's own. The "What it does" cards are drawn
  * in components/art.tsx instead: a capture shrunk to card size is unreadable.
