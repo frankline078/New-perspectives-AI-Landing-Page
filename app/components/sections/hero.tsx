@@ -1,6 +1,7 @@
 import { ArrowIcon, ChevronIcon, ExternalIcon, LogoMark } from "../icons";
 import { Frame } from "../shot";
 import { RunCard } from "../run-card";
+import { HERO_TAGS } from "../../content";
 import { screens } from "../../screens";
 import { APP_HREF, DEMO_HREF } from "../../site";
 
@@ -35,9 +36,11 @@ export function Hero() {
           </p>
 
           <div className="tags" aria-label="At a glance">
-            <span className="is-gold">7 steps</span>
-            <span>12 min per draft</span>
-            <span>Every claim linked</span>
+            {HERO_TAGS.map((t, i) => (
+              <span key={t} className={i === 0 ? "is-gold" : undefined}>
+                {t}
+              </span>
+            ))}
           </div>
 
           <div className="hero-actions">

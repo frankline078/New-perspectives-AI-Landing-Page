@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { NAV_LINKS as LINKS } from "./nav-links";
+import { NAV_LINKS as LINKS } from "../content";
 
 /**
  * Vertical offset that counts a section as "reached". The page scrolls a

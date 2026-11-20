@@ -1,42 +1,20 @@
-import type { ReactNode } from "react";
 import { ArrowIcon } from "../icons";
 import { SourceArt } from "../art";
+import { SOURCE_CARDS, SOURCES, SOURCES_NOT_CARDED } from "../../content";
 import { DEMO_HREF } from "../../site";
 
-/** Everything it reads from. The last entry is the report itself, not a source. */
-export const SOURCES = ["PubMed Central", "ASAM guidelines", "SAMHSA", "Government health agencies", "Peer-reviewed journals", "Research report"];
-
-/** The first three sources, shown as cards with what each one backs in the draft. */
-const SOURCE_CARDS: { name: string; note: string; domain: string; kind: string; title: string; backs: ReactNode }[] = [
-  {
-    name: "PubMed Central",
-    note: "Behind the taper comparison",
-    domain: "pmc.ncbi.nlm.nih.gov",
-    kind: "Study",
-    title: "Meta-analysis of three benzodiazepine taper trials",
-    backs: "Backs the section on how gradual dose reduction compares with stopping at once.",
-  },
-  {
-    name: "ASAM guidelines",
-    note: "Where the timeline comes from",
-    domain: "asam.org",
-    kind: "Guideline",
-    title: "Joint clinical practice guideline on benzodiazepine tapering, 2025",
-    backs: (
-      <>
-        A full taper can take <mark>months to years</mark>, especially after high doses taken for a long time.
-      </>
-    ),
-  },
-  {
-    name: "SAMHSA",
-    note: "Where readers are sent for help",
-    domain: "samhsa.gov",
-    kind: "Government",
-    title: "Substance Abuse and Mental Health Services Administration",
-    backs: "Backs the closing section on where readers can find support and treatment.",
-  },
-];
+/** A card's `backs` line, with its `mark` part highlighted. */
+function Backs({ text, mark }: { text: string; mark?: string }) {
+  const at = mark ? text.indexOf(mark) : -1;
+  if (!mark || at < 0) return text;
+  return (
+    <>
+      {text.slice(0, at)}
+      <mark>{mark}</mark>
+      {text.slice(at + mark.length)}
+    </>
+  );
+}
 
 export function Sources() {
   return (
@@ -44,7 +22,7 @@ export function Sources() {
       <div id="research" className="section-head">
         <h2>
           Sources
-          <span className="count">{SOURCES.length - 1}</span>
+          <span className="count">{SOURCES.length}</span>
         </h2>
         <a className="btn btn-light btn-sm" href={DEMO_HREF}>
           See a full report
@@ -70,7 +48,7 @@ export function Sources() {
         {SOURCE_CARDS.map((s) => (
           <article key={s.name} className="card">
             <div className="thumb">
-              <SourceArt domain={s.domain} kind={s.kind} title={s.title} backs={s.backs} />
+              <SourceArt domain={s.domain} kind={s.kind} title={s.title} backs={<Backs text={s.backs} mark={s.mark} />} />
             </div>
             <div className="card-meta">
               <div>
@@ -87,7 +65,7 @@ export function Sources() {
           <h3>The research is the slow part, so it goes first.</h3>
           <p>Before it writes a word, it reads clinical guidelines, studies and government pages on your topic, and keeps every link.</p>
           <ul className="research-band-also" aria-label="Also reads">
-            {SOURCES.slice(3, -1).map((name) => (
+            {SOURCES_NOT_CARDED.map((name) => (
               <li key={name}>{name}</li>
             ))}
           </ul>

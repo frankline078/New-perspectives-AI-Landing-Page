@@ -2,7 +2,7 @@
 
 import { useRef, type CSSProperties } from "react";
 import { ArrowIcon, LogoMark } from "./icons";
-import { NAV_LINKS as LINKS } from "./nav-links";
+import { NAV_LINKS as LINKS } from "../content";
 
 /**
  * The menu below 900px, where the pill nav is hidden: a drawer that slides

@@ -1,5 +1,4 @@
-import { STEPS } from "./what-it-does";
-import { SOURCES } from "./sources";
+import { SOURCES, STEPS } from "../../content";
 
 export function SectionTabs() {
   return (
@@ -11,7 +10,7 @@ export function SectionTabs() {
         </a>
         <a href="#sources">
           Sources
-          <span className="count">{SOURCES.length - 1}</span>
+          <span className="count">{SOURCES.length}</span>
         </a>
       </nav>
     </div>

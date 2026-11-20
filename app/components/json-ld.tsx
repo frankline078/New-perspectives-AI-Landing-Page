@@ -1,9 +1,7 @@
+import { PLANS, planSummary } from "../content";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../site";
 
-/**
- * Structured data for search engines: who makes it and what it costs.
- * The plans must match the Pricing section (sections/pricing.tsx); update both together.
- */
+/** Structured data for search engines: who makes it and what it costs. */
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -22,10 +20,13 @@ const JSON_LD = {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       publisher: { "@id": `${SITE_URL}/#org` },
-      offers: [
-        { "@type": "Offer", name: "Starter", price: "399", priceCurrency: "USD", description: "60 articles a month, 1 WordPress site" },
-        { "@type": "Offer", name: "Team", price: "799", priceCurrency: "USD", description: "200 articles a month, 5 WordPress sites" },
-      ],
+      offers: PLANS.map((p) => ({
+        "@type": "Offer",
+        name: p.name,
+        price: String(p.price),
+        priceCurrency: "USD",
+        description: planSummary(p),
+      })),
     },
   ],
 };
