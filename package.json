@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@playwright/mcp": "0.0.86",
-    "@tailwindcss/turbopack": "4.3.3",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

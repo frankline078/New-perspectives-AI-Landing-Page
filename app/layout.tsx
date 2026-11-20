@@ -9,14 +9,12 @@ const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   weight: ["500", "700", "800"],
-  display: "swap",
 });
 
 const instrument = Instrument_Sans({
   variable: "--font-instrument",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
 });
 
 // The share image, favicon and Apple icon come from the files in app/
