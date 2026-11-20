@@ -7,3 +7,9 @@ export const SITE_NAME = "New Perspectives AI";
 export const SITE_TITLE = "New Perspectives AI: articles that did the reading first";
 export const SITE_DESCRIPTION =
   "New Perspectives AI researches your topic, writes the article, checks every claim, and hands you a draft ready for WordPress. Built for treatment and mental health websites.";
+
+/** Where every "Book a demo" goes. */
+export const DEMO_HREF = "mailto:[YOUR EMAIL]";
+
+/** The product itself: "Log in" and any link that opens the app. */
+export const APP_HREF = "https://app.newperspectives.ai/login";
